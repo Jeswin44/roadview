@@ -1,0 +1,22 @@
+# Target build output
+target/
+*.class
+
+# Downloaded tools
+.tools/
+
+# Logs
+*.log
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

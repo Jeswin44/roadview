@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadGuard AI — Simple Road Safety & Vehicle Passability Assistant</title>
+    <meta name="description" content="Simple, user-friendly AI road safety system: dashcam pothole tracking, vehicle passability calculator, and unsafe road alerts.">
+
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Leaflet Map & FontAwesome -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="simple-theme">
+
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="app-logo">
+                <i class="fa-solid fa-road"></i>
+            </div>
+            <div>
+                <h1 class="app-title">RoadGuard <span>AI</span></h1>
+                <p class="app-tagline">Smart Road Safety & Vehicle Damage Prevention</p>
+            </div>
+        </div>
+
+        <!-- Quick Status Pills -->
+        <div class="header-status">
+            <div class="status-pill">
+                <span class="live-dot"></span>
+                <span>AI Scanner: <strong>Active</strong></span>
+            </div>
+            <div class="status-pill">
+                <i class="fa-solid fa-location-dot text-cyan"></i>
+                <span id="headerLocation">Outer Ring Road, Bengaluru</span>
+            </div>
+            <div class="status-pill">
+                <i class="fa-solid fa-gauge-high text-amber"></i>
+                <span>Speed: <strong class="mono" id="headerSpeed">42 km/h</strong></span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <button class="btn btn-secondary" id="btnToggleSimDrive">
+                <i class="fa-solid fa-play"></i> <span id="simBtnText">Pause Drive</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Top Proximity Hazard Banner -->
+    <div class="simple-alert-banner hidden" id="proximityBanner">
+        <div class="sab-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="sab-text">
+            <strong id="proxTitle">Caution: Dangerous Pothole Ahead!</strong>
+            <span id="proxDesc">Deep crater detected 35 meters ahead. Slow down to avoid damage.</span>
+        </div>
+        <div class="sab-distance mono" id="proxDistance">35m</div>
+        <button class="sab-close" id="btnCloseProxAlert"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar">
+        <button class="nav-tab active" data-tab="tab-vehicle">
+            <i class="fa-solid fa-car-side"></i> Can My Vehicle Cross?
+        </button>
+        <button class="nav-tab" data-tab="tab-dashcam">
+            <i class="fa-solid fa-video"></i> Live Dashcam
+        </button>
+        <button class="nav-tab" data-tab="tab-upload">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Upload Photo / Video
+        </button>
+        <button class="nav-tab" data-tab="tab-map">
+            <i class="fa-solid fa-map-location-dot"></i> Unsafe Roads Map
+        </button>
+        <button class="nav-tab" data-tab="tab-dispatches">
+            <i class="fa-solid fa-building-shield"></i> Authority Reports
+            <span class="pill-badge" id="dispatchesBadge">3</span>
+        </button>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+
+        <!-- ================= TAB 1: VEHICLE PASSABILITY & WEAR (SIMPLE & CLEAR) ================= -->
+        <section class="tab-page active" id="tab-vehicle">
+            <div class="guide-banner">
+                <div class="gb-icon"><i class="fa-solid fa-circle-question"></i></div>
+                <div class="gb-text">
+                    <h3>Check if your vehicle can safely cross this road</h3>
+                    <p>Select your vehicle and road. Our AI calculates whether your vehicle will scrape the bottom and exactly how many safe crossings it can survive in good condition.</p>
+                </div>
+            </div>
+
+            <div class="vehicle-two-col">
+                <!-- Left: Simple Selector Form -->
+                <div class="card selector-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-car"></i> Step 1: Select Your Vehicle</h3>
+                    
+                    <!-- Quick vehicle select buttons with real photos/names -->
+                    <div class="quick-vehicles">
+                        <label class="field-label">Common Vehicles (Click to select):</label>
+                        <div class="vehicle-chips" id="quickVehicleChips">
+                            <button class="v-chip active" data-vid="v-city">
+                                <span class="v-icon">🚗</span>
+                                <span class="v-name">Honda City</span>
+                                <span class="v-type">Sedan (165 mm)</span>
+                            </button>
+                            <button class="v-chip" data-vid="v-swift">
+                                <span class="v-icon">🚘</span>
+                                <span class="v-name">Maruti Swift</span>
+                                <span class="v-type">Hatchback (163 mm)</span>
+                            </button>
+                            <button class="v-chip" data-vid="v-creta">
+                                <span class="v-icon">🚙</span>
+                                <span class="v-name">Hyundai Creta</span>
+                                <span class="v-type">Compact SUV (190 mm)</span>
+                            </button>
+                            <button class="v-chip" data-vid="v-thar">
+                                <span class="v-icon">🛻</span>
+                                <span class="v-name">Mahindra Thar</span>
+                                <span class="v-type">4x4 Offroader (226 mm)</span>
+                            </button>
+                            <button class="v-chip" data-vid="v-activa">
+                                <span class="v-icon">🛵</span>
+                                <span class="v-name">Honda Activa 6G</span>
+                                <span class="v-type">Scooter (162 mm)</span>
+                            </button>
+                            <button class="v-chip" data-vid="v-re-classic">
+                                <span class="v-icon">🏍️</span>
+                                <span class="v-name">Royal Enfield 350</span>
+                                <span class="v-type">Bike (170 mm)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="field-label" for="vehicleSearchInput">Or type any Vehicle Make & Model:</label>
+                        <div class="input-with-icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="vehicleSearchInput" list="vehicleDatalist" placeholder="e.g. Toyota Fortuner, Tata Nexon, Polo...">
+                            <datalist id="vehicleDatalist"></datalist>
+                        </div>
+                    </div>
+
+                    <h3 class="card-heading mt-4"><i class="fa-solid fa-road"></i> Step 2: Choose Road / Pothole</h3>
+                    <div class="input-group">
+                        <label class="field-label" for="selectTestPothole">Select Hazard to Test Against:</label>
+                        <select id="selectTestPothole" class="select-box">
+                            <!-- Populated from backend -->
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-row">
+                            <label class="field-label">Driving Speed:</label>
+                            <span class="speed-readout mono" id="dispSpeedVal">25 km/h</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="inputTestSpeed" min="5" max="70" value="25" step="5">
+                        <div class="slider-marks">
+                            <span>5 km/h (Crawling)</span>
+                            <span>25 km/h (Normal)</span>
+                            <span>70 km/h (Fast)</span>
+                        </div>
+                    </div>
+
+                    <!-- Optional specs toggle -->
+                    <div class="custom-specs-toggle">
+                        <button type="button" class="btn-link" id="toggleCustomSpecs">
+                            <i class="fa-solid fa-sliders"></i> Adjust ground clearance manually (Optional)
+                        </button>
+                        <div class="custom-specs-panel hidden" id="customSpecsBody">
+                            <label class="field-label">Ground Clearance (in mm):</label>
+                            <input type="number" id="specGc" value="165" class="simple-input mono">
+                            <input type="hidden" id="specWheelbase" value="2600">
+                            <input type="hidden" id="specRim" value="16">
+                            <input type="hidden" id="specSuspension" value="COMFORT_INDEPENDENT">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" id="btnCalculatePassability">
+                        <i class="fa-solid fa-check"></i> Check Passability Now
+                    </button>
+                </div>
+
+                <!-- Right: Plain-English Results Card -->
+                <div class="card result-card" id="vehicleResultsCard">
+                    <h3 class="card-heading"><i class="fa-solid fa-square-poll-vertical"></i> Passability Results</h3>
+
+                    <!-- Big Verdict Card -->
+                    <div class="verdict-card" id="verdictBanner">
+                        <div class="verdict-emoji" id="verdictEmoji">⚠️</div>
+                        <div class="verdict-details">
+                            <div class="verdict-tag" id="verdictBadgeLabel">CAN THIS VEHICLE CROSS?</div>
+                            <h2 class="verdict-headline" id="verdictTitle">Passable with Extreme Caution</h2>
+                            <p class="verdict-explanation" id="verdictSub">Ground clearance is very narrow. You risk scraping your engine underbody unless you drive under 10 km/h.</p>
+                        </div>
+                    </div>
+
+                    <!-- THE CORE ANSWER: EXACT NUMBER OF CROSSINGS IN GOOD CONDITION -->
+                    <div class="answer-box">
+                        <div class="answer-label">HOW MANY TIMES CAN IT SAFELY CROSS THIS ROAD?</div>
+                        <div class="answer-hero">
+                            <span class="answer-count mono" id="crossingsCounter">9</span>
+                            <span class="answer-unit">Safe Crossings Remaining</span>
+                        </div>
+                        <div class="answer-bar-wrap">
+                            <div class="answer-bar-fill" id="durabilityFill" style="width: 25%;"></div>
+                        </div>
+                        <p class="answer-note" id="durabilityBadge">
+                            With your vehicle in good condition, you can cross this specific road approximately <strong>9 times</strong> before experiencing severe suspension wear or rim bend.
+                        </p>
+                    </div>
+
+                    <!-- Easy-to-understand Clearance Meter -->
+                    <div class="clearance-box">
+                        <h4 class="sub-heading">Height Comparison (Safety Room):</h4>
+                        <div class="simple-meter-row">
+                            <div class="smr-item">
+                                <span class="smr-title">Car Clearance:</span>
+                                <span class="smr-val text-cyan mono" id="dispGcMm">165 mm</span>
+                            </div>
+                            <div class="smr-vs">VS</div>
+                            <div class="smr-item">
+                                <span class="smr-title">Pothole Depth:</span>
+                                <span class="smr-val text-rose mono" id="dispDepthMm">115 mm</span>
+                            </div>
+                            <div class="smr-vs">=</div>
+                            <div class="smr-item">
+                                <span class="smr-title">Safety Room Left:</span>
+                                <span class="smr-val text-emerald mono" id="dispMarginMm">16 mm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plain English Wear & Cost Impact -->
+                    <div class="impact-grid">
+                        <div class="impact-item">
+                            <span class="ii-label"><i class="fa-solid fa-wrench"></i> Wear Per Trip</span>
+                            <strong class="ii-val" id="wearShock">12% / pass</strong>
+                        </div>
+                        <div class="impact-item">
+                            <span class="ii-label"><i class="fa-solid fa-circle-notch"></i> Rim Damage Risk</span>
+                            <strong class="ii-val text-rose" id="wearRim">55% Risk</strong>
+                        </div>
+                        <div class="impact-item">
+                            <span class="ii-label"><i class="fa-solid fa-coins"></i> Est. Repair Cost</span>
+                            <strong class="ii-val text-amber" id="wearCost">₹19,500</strong>
+                        </div>
+                    </div>
+
+                    <!-- Simple Driver Advice -->
+                    <div class="advice-card">
+                        <h4 class="advice-title"><i class="fa-solid fa-lightbulb text-amber"></i> Helpful Driver Advice:</h4>
+                        <ul class="advice-list" id="insightsList">
+                            <li>Slow down to 10 km/h before the hole.</li>
+                            <li>Drive across at a slight angle so both wheels don't drop at the same time.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: LIVE DASHCAM (CLEAN & SIMPLE) ================= -->
+        <section class="tab-page" id="tab-dashcam">
+            <div class="dashcam-layout">
+                <div class="card dashcam-main-card">
+                    <div class="dashcam-header-simple">
+                        <div class="dh-left">
+                            <span class="live-badge"><span class="live-dot"></span> LIVE VEHICLE DASHCAM</span>
+                            <span class="stream-source" id="vpStreamSource">Mounted on Windshield</span>
+                        </div>
+                        <div class="dh-right">
+                            <button class="btn btn-sm btn-outline" id="btnSwitchCamera">
+                                <i class="fa-solid fa-camera"></i> Use Device Camera
+                            </button>
+                            <button class="btn btn-sm btn-outline" id="btnUseSimVideo">
+                                <i class="fa-solid fa-road"></i> Use Road Simulator
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dashcam Stage -->
+                    <div class="dashcam-viewport">
+                        <canvas id="dashcamCanvas" width="960" height="540"></canvas>
+                        <video id="webcamElement" playsinline autoplay muted class="hidden"></video>
+
+                        <!-- Clean Friendly Overlay -->
+                        <div class="simple-hud-overlay">
+                            <!-- Clean Speed Badge -->
+                            <div class="hud-speed-badge">
+                                <span class="hsb-num mono" id="dashcamSpeed">42</span>
+                                <span class="hsb-unit">KM/H</span>
+                            </div>
+
+                            <!-- Real-time Bounding Box for Pothole -->
+                            <div class="hazard-bbox-overlay" id="hazardBbox">
+                                <div class="bbox-bracket tl"></div>
+                                <div class="bbox-bracket tr"></div>
+                                <div class="bbox-bracket bl"></div>
+                                <div class="bbox-bracket br"></div>
+                                <div class="bbox-tag" id="bboxTag">
+                                    <span class="tag-alert">⚠️ POTHOLE AHEAD</span>
+                                    <span class="tag-depth">DEPTH: 11.5 cm</span>
+                                    <span class="tag-dist">22m AWAY</span>
+                                </div>
+                            </div>
+
+                            <div class="hud-bottom-notice">
+                                <i class="fa-solid fa-eye text-cyan"></i> AI Road Scanner: Scanning active surface continuously
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashcam-footer-simple">
+                        <div class="df-info">
+                            <span>Detected on Road:</span>
+                            <strong class="text-rose" id="liveHazardName">Deep Highway Crater (#p-101)</strong>
+                            <span class="sep">•</span>
+                            <span>Depth:</span>
+                            <strong class="mono" id="statDepth">11.5 cm</strong>
+                        </div>
+                        <div class="df-actions">
+                            <button class="btn btn-secondary" id="btnManualTriggerDetect">
+                                <i class="fa-solid fa-camera-retro"></i> Scan Frame
+                            </button>
+                            <button class="btn btn-primary" id="btnInstantDispatchReport">
+                                <i class="fa-solid fa-bullhorn"></i> Report to Authorities
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Summary Card -->
+                <div class="card dashcam-info-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-shield-halved"></i> Road Condition Summary</h3>
+                    
+                    <div class="simple-score-circle">
+                        <div class="score-display">
+                            <span class="score-number mono" id="severityScoreVal">94</span>
+                            <span class="score-max">/ 100</span>
+                        </div>
+                        <div class="score-label">
+                            <strong class="text-rose" id="aiSeverityBadge">CRITICAL SEVERITY</strong>
+                            <p>This crater is deep enough to crack wheels or cause sudden two-wheeler falls.</p>
+                        </div>
+                    </div>
+
+                    <!-- Auto-report notification -->
+                    <div class="simple-report-box" id="autoReportStatusBox">
+                        <i class="fa-solid fa-circle-check text-emerald"></i>
+                        <div>
+                            <strong>Automatically Reported!</strong>
+                            <p>Severity is over 70%. An alert was automatically sent to the National Highways Authority.</p>
+                            <span class="ticket-ref mono" id="autoDispatchRef">Ticket: #RPT-894210</span>
+                        </div>
+                    </div>
+
+                    <h4 class="sub-heading mt-4">Potholes Detected Nearby:</h4>
+                    <div class="simple-pothole-list" id="recentHazardsList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: MEDIA UPLOAD (SIMPLE & EASY) ================= -->
+        <section class="tab-page" id="tab-upload">
+            <div class="upload-simple-layout">
+                <div class="card upload-box-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-cloud-arrow-up"></i> Upload a Road Photo or Video</h3>
+                    <p class="card-desc">Have a photo or dashcam video clip of a damaged road? Upload it below to find out how deep the pothole is and report it.</p>
+
+                    <!-- Drag & Drop Area -->
+                    <div class="simple-dropzone" id="dropzoneArea">
+                        <input type="file" id="mediaFileInput" accept="image/*,video/*" class="hidden-input">
+                        <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                        <h4>Click or Drag & Drop Photo/Video Here</h4>
+                        <p>Supports JPG, PNG, MP4 (Max 50MB)</p>
+                        <button class="btn btn-outline" type="button" onclick="document.getElementById('mediaFileInput').click()">
+                            Browse Files on Computer
+                        </button>
+                    </div>
+
+                    <!-- Quick Sample Photos -->
+                    <div class="quick-samples">
+                        <span class="qs-title">Or Try a Sample Road Photo:</span>
+                        <div class="sample-buttons">
+                            <button class="sample-btn active" data-sample="deep-crater">🔴 Deep Highway Crater</button>
+                            <button class="sample-btn" data-sample="water-pothole">💧 Water-Filled Hole</button>
+                            <button class="sample-btn" data-sample="transverse-trench">🚧 Road Trench</button>
+                            <button class="sample-btn" data-sample="minor-crack">🟢 Minor Surface Crack</button>
+                        </div>
+                    </div>
+
+                    <div class="simple-form-row">
+                        <div class="input-group">
+                            <label class="field-label">Road or Location Name:</label>
+                            <input type="text" id="uploadRoadName" class="simple-input" value="Outer Ring Road, Bengaluru">
+                        </div>
+                        <input type="hidden" id="uploadLat" value="12.935240">
+                        <input type="hidden" id="uploadLng" value="77.685320">
+                    </div>
+
+                    <button class="btn btn-primary btn-large" id="btnExecuteAiInspection">
+                        <i class="fa-solid fa-magnifying-glass"></i> Analyze Pothole with AI
+                    </button>
+                </div>
+
+                <!-- Results Box -->
+                <div class="card upload-result-box" id="uploadResultsCard">
+                    <h3 class="card-heading"><i class="fa-solid fa-clipboard-check"></i> AI Analysis Result</h3>
+
+                    <div class="simple-preview-container">
+                        <canvas id="uploadCanvasPreview" width="640" height="360"></canvas>
+                        <div class="ai-scan-line" id="aiScanLine"></div>
+                    </div>
+
+                    <div class="simple-metrics-row">
+                        <div class="sm-card">
+                            <span>Severity:</span>
+                            <strong class="text-rose mono" id="resSeverityScore">94%</strong>
+                        </div>
+                        <div class="sm-card">
+                            <span>Estimated Depth:</span>
+                            <strong class="mono" id="resDepth">11.5 cm</strong>
+                        </div>
+                        <div class="sm-card">
+                            <span>Width:</span>
+                            <strong class="mono" id="resDiameter">62 cm</strong>
+                        </div>
+                        <div class="sm-card">
+                            <span>Water Masked?</span>
+                            <strong id="resWater">No (Dry)</strong>
+                        </div>
+                    </div>
+
+                    <div class="simple-report-box mt-3 hidden" id="uploadDispatchAlert">
+                        <i class="fa-solid fa-bullhorn text-rose"></i>
+                        <div>
+                            <strong>Very Dangerous! Alert Sent to Authorities</strong>
+                            <p>This crater exceeds the safety threshold and was reported to the civic maintenance team. Ticket: <strong id="uploadDispatchRef">#1084</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: UNSAFE ROADS MAP ================= -->
+        <section class="tab-page" id="tab-map">
+            <div class="map-layout">
+                <div class="card map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3 class="card-heading"><i class="fa-solid fa-map-location-dot"></i> Unsafe Roads Map</h3>
+                            <p class="card-desc">Click any pin on the map to see pothole depth and check if your vehicle can cross it.</p>
+                        </div>
+                        <div class="map-quick-filters">
+                            <span class="gmaps-badge"><i class="fa-brands fa-google text-cyan"></i> Google Maps</span>
+                            <button class="filter-chip active" data-filter="all">All</button>
+                            <button class="filter-chip text-rose" data-filter="unsafe">⚠️ Dangerous Only</button>
+                            <button class="filter-chip text-emerald" data-filter="repaired">✅ Repaired</button>
+                        </div>
+                    </div>
+
+                    <div id="roadMap" style="height: 540px; width: 100%; border-radius: 10px;"></div>
+                </div>
+
+                <!-- Directory Card -->
+                <div class="card roads-directory-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-list-check"></i> Roads in Your Area</h3>
+                    
+                    <div class="input-with-icon mb-3">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="roadSearchInput" placeholder="Search road name...">
+                    </div>
+
+                    <div class="roads-list" id="roadsList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: AUTHORITY REPORTS ================= -->
+        <section class="tab-page" id="tab-dispatches">
+            <div class="card">
+                <div class="dispatch-header-clean">
+                    <div>
+                        <h3 class="card-heading"><i class="fa-solid fa-building-shield"></i> Authority Dispatch Center</h3>
+                        <p class="card-desc">All dangerous potholes (Severity &ge; 70%) are automatically reported to the National Highways Authority and Municipal Corporation.</p>
+                    </div>
+                    <div class="dispatch-summary-pills">
+                        <div class="dsp-pill"><strong class="text-rose" id="dispStatCritical">3</strong> Critical</div>
+                        <div class="dsp-pill"><strong class="text-amber" id="dispStatDispatched">3</strong> Pending Repair</div>
+                        <div class="dsp-pill"><strong class="text-emerald" id="dispStatResolved">0</strong> Repaired</div>
+                    </div>
+                </div>
+
+                <div class="dispatch-cards-grid mt-4" id="dispatchCardsGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Simple Dossier Modal -->
+    <div class="modal-overlay hidden" id="dossierModal">
+        <div class="modal-card" id="dossierModalContent">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-lines text-cyan"></i> Official Incident Report</h3>
+                <button class="modal-close" id="btnCloseDossier"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="dossierBody">
+                <!-- Dynamically generated -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> Print Report
+                </button>
+                <button class="btn btn-primary" id="btnMarkRepairedModal">
+                    <i class="fa-solid fa-check"></i> Mark as Fixed
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Maps JavaScript API with Provided Demo Key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqOwh79bsnGhCy7e0iuoaF5fEevxTg9BQ&libraries=places,geometry"></script>
+    <!-- Leaflet Map Script (Fallback) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+</body>
+</html>
