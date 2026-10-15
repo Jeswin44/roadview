@@ -101,6 +101,20 @@ Then open your browser at:
 
 ---
 
+## 🚀 Deploying to Vercel (1-Click Deployment)
+
+The project includes root `index.html`, `styles.css`, `app.js`, `vercel.json`, and serverless functions in `api/index.js` so it works out of the box with zero configuration:
+
+1. Go to [Vercel](https://vercel.com) and click **"Add New..."** &rarr; **"Project"**.
+2. Select your repository: **`Jeswin44/roadview`**.
+3. **Framework Preset**: Leave as default (**Other** / Static).
+4. **Build & Output Settings**: Leave empty (no build step needed).
+5. Click **Deploy**!
+
+Your full website will be live with 100% of features active (Vehicle Passability AI, Safe Crossing Countdown, Google Maps, Live Dashcam Simulator, and Civic Authority Dispatches).
+
+---
+
 ## 📂 Project Structure
 
 ```
