@@ -149,8 +149,47 @@
                     </div>
 
                     <h3 class="card-heading mt-4"><i class="fa-solid fa-road"></i> Step 2: Choose Road / Pothole</h3>
-                    <div class="input-group">
-                        <label class="field-label" for="selectTestPothole">Select Hazard to Test Against:</label>
+                    
+                    <!-- Location Link & Google Maps Integration -->
+                    <div class="location-link-card">
+                        <div class="ll-toolbar">
+                            <button type="button" class="btn-location-toggle" id="btnToggleVehicleLocation">
+                                <i class="fa-solid fa-location-crosshairs"></i>
+                                <span id="vehicleLocationBtnText">Turn On My Location</span>
+                            </button>
+                            <button type="button" class="btn-location-center hidden" id="btnRecenterVehicleMap" title="Center on My Location">
+                                <i class="fa-solid fa-crosshairs"></i> Center
+                            </button>
+                        </div>
+
+                        <div class="ll-status-bar" id="vehicleLocStatusBar">
+                            <span class="loc-pulse-indicator" id="locPulseDot"></span>
+                            <span class="ll-status-text" id="vehicleLocStatusText">Turn on your location to automatically load the 6 closest roads via Google Maps</span>
+                        </div>
+
+                        <!-- Embedded Google Maps for Vehicle Section -->
+                        <div class="vehicle-map-container" id="vehicleMapContainer">
+                            <div class="vehicle-map-topbar">
+                                <span class="vmt-title"><i class="fa-brands fa-google text-cyan"></i> Google Maps <span class="vmt-subtitle">• Road Radar</span></span>
+                                <span class="vmt-count-badge" id="vehicleMapRoadBadge">6 Nearby Roads</span>
+                            </div>
+                            <div id="vehicleSectionGoogleMap" class="vehicle-map-viewport"></div>
+                        </div>
+
+                        <!-- 6 Nearby Roads Interactive Grid -->
+                        <div class="nearby-roads-container" id="nearbyRoadsContainer">
+                            <div class="nr-section-header">
+                                <span class="nr-heading"><i class="fa-solid fa-route text-cyan"></i> 6 Nearby Roads to Your Location:</span>
+                                <span class="nr-subhint">Click any road below or tap a pin on the map</span>
+                            </div>
+                            <div class="nearby-roads-grid" id="nearbyRoadsGrid">
+                                <!-- Dynamically generated 6 nearby roads -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mt-3">
+                        <label class="field-label" for="selectTestPothole">Or Select Road / Hazard from Dropdown:</label>
                         <select id="selectTestPothole" class="select-box">
                             <!-- Populated from backend -->
                         </select>

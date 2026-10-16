@@ -9,33 +9,60 @@ const SEED_VEHICLES = [
     { id: 'v-creta', make: 'Hyundai', model: 'Creta', fullName: 'Hyundai Creta', category: 'SUV', groundClearanceMm: 190, wheelbaseMm: 2610, wheelRimInches: 17, approachAngleDeg: 19, departureAngleDeg: 23, tireProfilePercent: 60, suspensionType: 'COMFORT_INDEPENDENT', curbWeightKg: 1310 },
     { id: 'v-thar', make: 'Mahindra', model: 'Thar 4x4', fullName: 'Mahindra Thar', category: 'SUV', groundClearanceMm: 226, wheelbaseMm: 2450, wheelRimInches: 18, approachAngleDeg: 41, departureAngleDeg: 36, tireProfilePercent: 65, suspensionType: 'RUGGED_OFFROAD', curbWeightKg: 1750 },
     { id: 'v-activa', make: 'Honda', model: 'Activa 6G', fullName: 'Honda Activa', category: 'SCOOTER', groundClearanceMm: 162, wheelbaseMm: 1260, wheelRimInches: 12, approachAngleDeg: 22, departureAngleDeg: 25, tireProfilePercent: 90, suspensionType: 'TELESCOPIC', curbWeightKg: 107 },
-    { id: 'v-bullet', make: 'Royal Enfield', model: 'Classic 350', fullName: 'Royal Enfield 350', category: 'MOTORCYCLE', groundClearanceMm: 170, wheelbaseMm: 1390, wheelRimInches: 19, approachAngleDeg: 26, departureAngleDeg: 28, tireProfilePercent: 90, suspensionType: 'TELESCOPIC', curbWeightKg: 195 }
+    { id: 'v-bullet', make: 'Royal Enfield', model: 'Classic 350', fullName: 'Royal Enfield 350', category: 'MOTORCYCLE', groundClearanceMm: 170, wheelbaseMm: 1390, wheelRimInches: 19, approachAngleDeg: 26, departureAngleDeg: 28, tireProfilePercent: 90, suspensionType: 'TELESCOPIC', curbWeightKg: 195 },
+    { id: 'v-fortuner', make: 'Toyota', model: 'Fortuner', fullName: 'Toyota Fortuner', category: 'SUV', groundClearanceMm: 225, wheelbaseMm: 2745, wheelRimInches: 18, approachAngleDeg: 29, departureAngleDeg: 25, tireProfilePercent: 60, suspensionType: 'RUGGED_OFFROAD', curbWeightKg: 2180 },
+    { id: 'v-polo', make: 'Volkswagen', model: 'Polo GT', fullName: 'Volkswagen Polo', category: 'HATCHBACK', groundClearanceMm: 168, wheelbaseMm: 2470, wheelRimInches: 16, approachAngleDeg: 14, departureAngleDeg: 16, tireProfilePercent: 55, suspensionType: 'COMFORT_INDEPENDENT', curbWeightKg: 1105 },
+    { id: 'v-nexon', make: 'Tata', model: 'Nexon', fullName: 'Tata Nexon', category: 'SUV', groundClearanceMm: 209, wheelbaseMm: 2498, wheelRimInches: 16, approachAngleDeg: 20, departureAngleDeg: 24, tireProfilePercent: 60, suspensionType: 'COMFORT_INDEPENDENT', curbWeightKg: 1230 }
 ];
 
 const SEED_ROADS = [
-    { id: 'r-1', name: 'Outer Ring Road (Marathahalli to Bellandur)', city: 'Bengaluru', district: 'East Zone', safetyScore: 3.8, status: 'UNSAFE', potholeCount: 4, dangerousPotholesCount: 3, averageDepthCm: 12.4, surfaceType: 'ASPHALT', managedBy: 'NHAI / BBMP', communityWarning: 'Deep craters along left lane; sedans risk underbody breach.', centerLat: 12.93524, centerLng: 77.68532 },
-    { id: 'r-2', name: 'Sarjapur Road (Kaikondrahalli Junction)', city: 'Bengaluru', district: 'South-East', safetyScore: 2.9, status: 'HAZARDOUS', potholeCount: 6, dangerousPotholesCount: 4, averageDepthCm: 16.2, surfaceType: 'ASPHALT', managedBy: 'BBMP Major Roads', communityWarning: 'Severe water-filled trenches across intersection. Two-wheelers prone to falls.', centerLat: 12.91245, centerLng: 77.67412 },
-    { id: 'r-3', name: 'Whitefield Main Road (Hope Farm Corridor)', city: 'Bengaluru', district: 'Mahadevapura', safetyScore: 4.2, status: 'CAUTION', potholeCount: 3, dangerousPotholesCount: 1, averageDepthCm: 9.1, surfaceType: 'ASPHALT', managedBy: 'BBMP Mahadevapura', communityWarning: 'Broken tarmac edges near metro construction zone. High rim bend risk.', centerLat: 12.96981, centerLng: 77.74992 },
-    { id: 'r-4', name: 'Bannerghatta National Park Road', city: 'Bengaluru', district: 'South Zone', safetyScore: 5.1, status: 'MODERATE', potholeCount: 3, dangerousPotholesCount: 2, averageDepthCm: 8.7, surfaceType: 'ASPHALT', managedBy: 'Karnataka PWD', communityWarning: 'Sunken culvert transitions; slow down at blind curves.', centerLat: 12.89432, centerLng: 77.59821 },
-    { id: 'r-5', name: 'MG Road (Brigade Road Junction to Trinity)', city: 'Bengaluru', district: 'Central Zone', safetyScore: 8.6, status: 'SAFE', potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 3.2, surfaceType: 'SMOOTH_BITUMEN', managedBy: 'BBMP Central', communityWarning: 'Good condition overall. Passable by all vehicles.', centerLat: 12.97410, centerLng: 77.61020 }
+    { id: 'road-101', name: 'Outer Ring Road (Marathahalli - Bellandur Stretch)', city: 'Bengaluru', district: 'East Zone', lengthKm: 7.8, safetyScore: 2.1, potholeCount: 19, dangerousPotholesCount: 7, averageDepthCm: 11.2, centerLat: 12.935240, centerLng: 77.685320, communityWarning: 'EXTREME HAZARD: Multiple deep craters across center & right lanes. Severe suspension hazard for small cars and two-wheelers.' },
+    { id: 'road-102', name: 'Bannerghatta National Highway Section 9', city: 'Bengaluru', district: 'South Zone', lengthKm: 12.4, safetyScore: 3.4, potholeCount: 14, dangerousPotholesCount: 5, averageDepthCm: 8.6, centerLat: 12.871230, centerLng: 77.593210, communityWarning: 'UNSAFE: Heavy truck ruts and unpaved shoulder sinkholes. Two-wheelers prone to skidding during rain.' },
+    { id: 'road-103', name: 'Old Madras Road (K.R. Puram Junction)', city: 'Bengaluru', district: 'East Zone', lengthKm: 5.2, safetyScore: 3.8, potholeCount: 12, dangerousPotholesCount: 4, averageDepthCm: 7.9, centerLat: 13.003410, centerLng: 77.691230, communityWarning: 'UNSAFE: Uneven asphalt patchwork with sharp jagged edge potholes near flyover pillars.' },
+    { id: 'road-104', name: 'Industrial Bypass Road (Peenya Phase 2)', city: 'Bengaluru', district: 'North Zone', lengthKm: 9.1, safetyScore: 2.8, potholeCount: 23, dangerousPotholesCount: 9, averageDepthCm: 12.5, centerLat: 13.031200, centerLng: 77.512300, communityWarning: 'CRITICAL DANGER: Continuous trenching and broken storm water grating. Impassable for low-clearance sedans.' },
+    { id: 'road-105', name: 'MG Road - Commercial Boulevard', city: 'Bengaluru', district: 'Central Zone', lengthKm: 4.3, safetyScore: 5.8, potholeCount: 6, dangerousPotholesCount: 2, averageDepthCm: 5.1, centerLat: 12.975420, centerLng: 77.608310, communityWarning: 'MODERATE CAUTION: Occasional manhole subsidence and surface cracking near pedestrian crossings.' },
+    { id: 'road-106', name: 'Sarjapur Main Road (Carmelaram Section)', city: 'Bengaluru', district: 'South East', lengthKm: 8.0, safetyScore: 4.9, potholeCount: 11, dangerousPotholesCount: 3, averageDepthCm: 6.4, centerLat: 12.909800, centerLng: 77.701200, communityWarning: 'MODERATE CAUTION: Ongoing pipeline excavation with rough metal plates across carriage way.' },
+    { id: 'road-107', name: 'Airport Elevated Expressway', city: 'Bengaluru', district: 'North Zone', lengthKm: 22.0, safetyScore: 9.4, potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 1.8, centerLat: 13.198900, centerLng: 77.706800, communityWarning: 'SAFE: Smooth hot-mix asphalt surface with active drainage. Excellent passability for all vehicles.' },
+    { id: 'road-108', name: 'Nice Ring Road (Hosur to Kanakapura Expressway)', city: 'Bengaluru', district: 'South Zone', lengthKm: 31.5, safetyScore: 8.9, potholeCount: 2, dangerousPotholesCount: 0, averageDepthCm: 2.2, centerLat: 12.842100, centerLng: 77.562100, communityWarning: 'SAFE: High quality concrete surface with minimal road ripples.' },
+    { id: 'road-109', name: 'Whitefield Main Road (Hope Farm Corridor)', city: 'Bengaluru', district: 'Mahadevapura', lengthKm: 6.8, safetyScore: 4.2, potholeCount: 8, dangerousPotholesCount: 3, averageDepthCm: 7.8, centerLat: 12.969810, centerLng: 77.749920, communityWarning: 'UNSAFE: Broken tarmac edges and metro construction diversions. Moderate rim bend hazard.' },
+    { id: 'road-110', name: '100 Feet Road (Indiranagar 12th Main to Domlur)', city: 'Bengaluru', district: 'East Zone', lengthKm: 3.2, safetyScore: 6.2, potholeCount: 5, dangerousPotholesCount: 1, averageDepthCm: 4.5, centerLat: 12.971890, centerLng: 77.641150, communityWarning: 'MODERATE CAUTION: Road patchwork near junction crossings. Manageable at moderate speeds.' },
+    { id: 'road-111', name: 'Koramangala 80 Feet Road (Sony World Signal)', city: 'Bengaluru', district: 'South East', lengthKm: 4.1, safetyScore: 5.1, potholeCount: 7, dangerousPotholesCount: 2, averageDepthCm: 5.8, centerLat: 12.934510, centerLng: 77.625820, communityWarning: 'MODERATE CAUTION: Water-filled dip near storm drain. Two-wheelers should avoid curbside lane.' },
+    { id: 'road-112', name: 'Hosur Road Expressway (Electronic City Phase 1)', city: 'Bengaluru', district: 'South Zone', lengthKm: 14.2, safetyScore: 8.4, potholeCount: 2, dangerousPotholesCount: 0, averageDepthCm: 2.8, centerLat: 12.845210, centerLng: 77.660140, communityWarning: 'SAFE: High-speed multi-lane surface in good condition with minor rumble strips.' }
 ];
 
 let potholes = [
-    { id: 'p-101', roadId: 'r-1', roadName: 'Outer Ring Road (near Bellandur Flyover)', latitude: 12.93524, longitude: 77.68532, depthCm: 14.5, diameterCm: 85.0, severityScore: 84, severityLevel: 'SEVERE', hazardType: 'DEEP_CRATER', isWaterLogged: true, isDangerous: true, threatToCars: 'Catastrophic Sump & Rim Fracture', status: 'ACTIVE' },
-    { id: 'p-102', roadId: 'r-2', roadName: 'Sarjapur Road (Kaikondrahalli Lake Turn)', latitude: 12.91245, longitude: 77.67412, depthCm: 18.0, diameterCm: 110.0, severityScore: 92, severityLevel: 'CRITICAL', hazardType: 'WATER_MASKED', isWaterLogged: true, isDangerous: true, threatToCars: 'Underbody Breach & Two-Wheeler Fall Hazard', status: 'ACTIVE' },
-    { id: 'p-103', roadId: 'r-3', roadName: 'Whitefield Main Road (near Metro Pillar 142)', latitude: 12.96981, longitude: 77.74992, depthCm: 8.5, diameterCm: 45.0, severityScore: 58, severityLevel: 'MEDIUM', hazardType: 'EDGE_BREAK', isWaterLogged: false, isDangerous: false, threatToCars: 'Moderate Suspension Shock', status: 'ACTIVE' },
-    { id: 'p-104', roadId: 'r-4', roadName: 'Bannerghatta Road (Gottigere Cross)', latitude: 12.89432, longitude: 77.59821, depthCm: 11.2, diameterCm: 65.0, severityScore: 74, severityLevel: 'SEVERE', hazardType: 'TRANSVERSE_TRENCH', isWaterLogged: false, isDangerous: true, threatToCars: 'Axle Misalignment & Rim Damage', status: 'ACTIVE' },
-    { id: 'p-105', roadId: 'r-1', roadName: 'Old Airport Road (HAL Gate)', latitude: 12.95810, longitude: 77.64920, depthCm: 6.0, diameterCm: 35.0, severityScore: 42, severityLevel: 'MEDIUM', hazardType: 'ALLIGATOR_CRACK', isWaterLogged: false, isDangerous: false, threatToCars: 'Minor Vibration & Tread Wear', status: 'ACTIVE' },
-    { id: 'p-106', roadId: 'r-5', roadName: 'MG Road (near Trinity Metro)', latitude: 12.97410, longitude: 77.61020, depthCm: 3.5, diameterCm: 25.0, severityScore: 22, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'REPAIRED' }
+    { id: 'p-101', roadId: 'road-101', roadName: 'Outer Ring Road (Marathahalli - Bellandur Stretch)', latitude: 12.935240, longitude: 77.685320, depthCm: 11.5, diameterCm: 62.0, severityScore: 94, severityLevel: 'CRITICAL', hazardType: 'DEEP_CRATER', isWaterLogged: false, isDangerous: true, threatToCars: 'Catastrophic Sump & Rim Fracture', status: 'ACTIVE' },
+    { id: 'p-102', roadId: 'road-101', roadName: 'Outer Ring Road (Marathahalli - Bellandur Stretch)', latitude: 12.936100, longitude: 77.687200, depthCm: 8.2, diameterCm: 48.0, severityScore: 82, severityLevel: 'SEVERE', hazardType: 'WATER_MASKED', isWaterLogged: true, isDangerous: true, threatToCars: 'Underbody Breach & Aquaplaning Risk', status: 'ACTIVE' },
+    { id: 'p-103', roadId: 'road-104', roadName: 'Industrial Bypass Road (Peenya Phase 2)', latitude: 13.031200, longitude: 77.512300, depthCm: 13.0, diameterCm: 75.0, severityScore: 96, severityLevel: 'CRITICAL', hazardType: 'TRANSVERSE_TRENCH', isWaterLogged: false, isDangerous: true, threatToCars: 'Suspension Fracture & Ground Out', status: 'ACTIVE' },
+    { id: 'p-104', roadId: 'road-102', roadName: 'Bannerghatta National Highway Section 9', latitude: 12.871230, longitude: 77.593210, depthCm: 9.0, diameterCm: 50.0, severityScore: 86, severityLevel: 'SEVERE', hazardType: 'DEEP_CRATER', isWaterLogged: true, isDangerous: true, threatToCars: 'Two-Wheeler Fall & Axle Misalignment', status: 'ACTIVE' },
+    { id: 'p-105', roadId: 'road-105', roadName: 'MG Road - Commercial Boulevard', latitude: 12.975420, longitude: 77.608310, depthCm: 4.8, diameterCm: 32.0, severityScore: 56, severityLevel: 'MEDIUM', hazardType: 'EDGE_BREAK', isWaterLogged: false, isDangerous: false, threatToCars: 'Moderate Suspension Shock', status: 'ACTIVE' },
+    { id: 'p-106', roadId: 'road-106', roadName: 'Sarjapur Main Road (Carmelaram Section)', latitude: 12.909800, longitude: 77.701200, depthCm: 5.5, diameterCm: 38.0, severityScore: 62, severityLevel: 'MEDIUM', hazardType: 'ALLIGATOR_CRACK', isWaterLogged: false, isDangerous: false, threatToCars: 'Minor Vibration & Tread Wear', status: 'ACTIVE' },
+    { id: 'p-107', roadId: 'road-107', roadName: 'Airport Elevated Expressway', latitude: 13.198900, longitude: 77.706800, depthCm: 2.1, diameterCm: 18.0, severityScore: 24, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'REPAIRED' },
+    { id: 'p-108', roadId: 'road-108', roadName: 'Nice Ring Road (Kanakapura Expressway)', latitude: 12.842100, longitude: 77.562100, depthCm: 2.5, diameterCm: 20.0, severityScore: 28, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'REPAIRED' },
+    { id: 'p-109', roadId: 'road-109', roadName: 'Whitefield Main Road (Hope Farm Corridor)', latitude: 12.969810, longitude: 77.749920, depthCm: 7.8, diameterCm: 45.0, severityScore: 72, severityLevel: 'SEVERE', hazardType: 'EDGE_BREAK', isWaterLogged: false, isDangerous: true, threatToCars: 'Rim Bend Hazard & Steering Pull', status: 'ACTIVE' },
+    { id: 'p-110', roadId: 'road-110', roadName: '100 Feet Road (Indiranagar 12th Main to Domlur)', latitude: 12.971890, longitude: 77.641150, depthCm: 4.5, diameterCm: 30.0, severityScore: 52, severityLevel: 'MEDIUM', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Tire Thud & Minor Jolt', status: 'ACTIVE' },
+    { id: 'p-111', roadId: 'road-111', roadName: 'Koramangala 80 Feet Road (Sony World Signal)', latitude: 12.934510, longitude: 77.625820, depthCm: 5.8, diameterCm: 42.0, severityScore: 64, severityLevel: 'MEDIUM', hazardType: 'ALLIGATOR_CRACK', isWaterLogged: true, isDangerous: false, threatToCars: 'Splash Hydroplaning Risk', status: 'ACTIVE' },
+    { id: 'p-112', roadId: 'road-112', roadName: 'Hosur Road Expressway (Electronic City Phase 1)', latitude: 12.845210, longitude: 77.660140, depthCm: 2.8, diameterCm: 22.0, severityScore: 30, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Minor Vibration', status: 'REPAIRED' }
 ];
 
 let dispatches = [
-    { dispatchId: 'disp-901', potholeId: 'p-101', officialRefNo: 'NHAI-KA-BLR-2026-9481', authorityName: 'National Highways Authority of India (NHAI)', roadName: 'Outer Ring Road (near Bellandur Flyover)', severityScore: 84, urgency: 'EMERGENCY_24H', status: 'DISPATCHED', targetResolutionDays: 1, reportedAt: '2026-10-15 09:30 IST', latitude: 12.93524, longitude: 77.68532 },
-    { dispatchId: 'disp-902', potholeId: 'p-102', officialRefNo: 'BBMP-ENG-SZ-2026-1042', authorityName: 'BBMP South Zone Road Infrastructure Cell', roadName: 'Sarjapur Road (Kaikondrahalli Lake Turn)', severityScore: 92, urgency: 'EMERGENCY_24H', status: 'DISPATCHED', targetResolutionDays: 1, reportedAt: '2026-10-15 11:15 IST', latitude: 12.91245, longitude: 77.67412 },
-    { dispatchId: 'disp-903', potholeId: 'p-104', officialRefNo: 'PWD-BLR-RURAL-2026-441', authorityName: 'Karnataka Public Works Department (PWD)', roadName: 'Bannerghatta Road (Gottigere Cross)', severityScore: 74, urgency: 'PRIORITY_48H', status: 'IN_REVIEW', targetResolutionDays: 2, reportedAt: '2026-10-15 14:00 IST', latitude: 12.89432, longitude: 77.59821 }
+    { dispatchId: 'disp-901', potholeId: 'p-101', officialRefNo: 'NHAI-KA-BLR-2026-9481', authorityName: 'National Highways Authority of India (NHAI)', roadName: 'Outer Ring Road (Marathahalli - Bellandur Stretch)', severityScore: 94, urgency: 'EMERGENCY_24H', status: 'DISPATCHED', targetResolutionDays: 1, reportedAt: '2026-10-15 09:30 IST', latitude: 12.935240, longitude: 77.685320 },
+    { dispatchId: 'disp-902', potholeId: 'p-103', officialRefNo: 'BBMP-ENG-NZ-2026-1042', authorityName: 'BBMP North Zone Infrastructure Division', roadName: 'Industrial Bypass Road (Peenya Phase 2)', severityScore: 96, urgency: 'EMERGENCY_24H', status: 'DISPATCHED', targetResolutionDays: 1, reportedAt: '2026-10-15 11:15 IST', latitude: 13.031200, longitude: 77.512300 },
+    { dispatchId: 'disp-903', potholeId: 'p-104', officialRefNo: 'PWD-BLR-RURAL-2026-441', authorityName: 'Karnataka Public Works Department (PWD)', roadName: 'Bannerghatta National Highway Section 9', severityScore: 86, urgency: 'PRIORITY_48H', status: 'IN_REVIEW', targetResolutionDays: 2, reportedAt: '2026-10-15 14:00 IST', latitude: 12.871230, longitude: 77.593210 }
 ];
 
 let gps = { latitude: 12.93524, longitude: 77.68532, speedKmh: 42, heading: 86, altitude: 915, address: "Outer Ring Road, Bellandur, Bengaluru" };
+
+function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371.0;
+    const dLat = (lat2 - lat1) * Math.PI / 180.0;
+    const dLon = (lon2 - lon1) * Math.PI / 180.0;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * Math.PI / 180.0) * Math.cos(lat2 * Math.PI / 180.0) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
 
 export default function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -53,6 +80,24 @@ export default function handler(req, res) {
     }
     if (path === '/api/roads') {
         return res.status(200).json(SEED_ROADS);
+    }
+    if (path === '/api/roads/nearby') {
+        const urlObj = new URL(req.url, 'http://localhost');
+        const lat = parseFloat(urlObj.searchParams.get('lat')) || 12.93524;
+        const lng = parseFloat(urlObj.searchParams.get('lng')) || 77.68532;
+        const limit = parseInt(urlObj.searchParams.get('limit')) || 6;
+
+        const roadsWithDistance = SEED_ROADS.map(road => {
+            const distKm = calculateHaversineDistanceKm(lat, lng, road.centerLat, road.centerLng);
+            return {
+                ...road,
+                distanceMeters: Math.round(distKm * 1000),
+                distanceKm: Math.round(distKm * 100) / 100
+            };
+        });
+
+        roadsWithDistance.sort((a, b) => a.distanceMeters - b.distanceMeters);
+        return res.status(200).json(roadsWithDistance.slice(0, limit));
     }
     if (path === '/api/potholes') {
         return res.status(200).json(potholes);
@@ -92,7 +137,24 @@ export default function handler(req, res) {
             vehicle = Object.assign({}, vehicle, { groundClearanceMm: parseFloat(body.groundClearanceMm) });
         }
 
-        let pothole = potholes.find(p => p.id === body.potholeId) || potholes[0];
+        let pothole = potholes.find(p => p.id === body.potholeId);
+        if (!pothole && body.roadId) {
+            pothole = potholes.find(p => p.roadId === body.roadId);
+        }
+        if (!pothole && body.roadId) {
+            const road = SEED_ROADS.find(r => r.id === body.roadId);
+            if (road) {
+                pothole = {
+                    id: 'p-dyn-' + road.id,
+                    roadId: road.id,
+                    roadName: road.name,
+                    depthCm: Math.max(3.0, (10.0 - road.safetyScore) * 1.6),
+                    severityScore: Math.round(Math.max(15, (10.0 - road.safetyScore) * 10))
+                };
+            }
+        }
+        if (!pothole) pothole = potholes[0];
+
         const speedKmh = parseInt(body.speedKmh) || 25;
         const gcMm = vehicle.groundClearanceMm;
         const potholeDepthMm = pothole.depthCm * 10.0;
@@ -237,7 +299,7 @@ export default function handler(req, res) {
 
         const newPothole = {
             id: newId,
-            roadId: 'r-live',
+            roadId: 'road-101',
             roadName,
             latitude: body.latitude || 12.93524,
             longitude: body.longitude || 77.68532,

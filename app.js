@@ -18,7 +18,14 @@ const SEED_ROADS = [
     { id: 'r-2', name: 'Sarjapur Road (Kaikondrahalli Junction)', city: 'Bengaluru', district: 'South-East', safetyScore: 2.9, status: 'HAZARDOUS', potholeCount: 6, dangerousPotholesCount: 4, averageDepthCm: 16.2, surfaceType: 'ASPHALT', managedBy: 'BBMP Major Roads', communityWarning: 'Severe water-filled trenches across intersection. Two-wheelers prone to falls.', centerLat: 12.91245, centerLng: 77.67412 },
     { id: 'r-3', name: 'Whitefield Main Road (Hope Farm Corridor)', city: 'Bengaluru', district: 'Mahadevapura', safetyScore: 4.2, status: 'CAUTION', potholeCount: 3, dangerousPotholesCount: 1, averageDepthCm: 9.1, surfaceType: 'ASPHALT', managedBy: 'BBMP Mahadevapura', communityWarning: 'Broken tarmac edges near metro construction zone. High rim bend risk.', centerLat: 12.96981, centerLng: 77.74992 },
     { id: 'r-4', name: 'Bannerghatta National Park Road', city: 'Bengaluru', district: 'South Zone', safetyScore: 5.1, status: 'MODERATE', potholeCount: 3, dangerousPotholesCount: 2, averageDepthCm: 8.7, surfaceType: 'ASPHALT', managedBy: 'Karnataka PWD', communityWarning: 'Sunken culvert transitions; slow down at blind curves.', centerLat: 12.89432, centerLng: 77.59821 },
-    { id: 'r-5', name: 'MG Road (Brigade Road Junction to Trinity)', city: 'Bengaluru', district: 'Central Zone', safetyScore: 8.6, status: 'SAFE', potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 3.2, surfaceType: 'SMOOTH_BITUMEN', managedBy: 'BBMP Central', communityWarning: 'Good condition overall. Passable by all vehicles.', centerLat: 12.97410, centerLng: 77.61020 }
+    { id: 'r-5', name: 'MG Road (Brigade Road Junction to Trinity)', city: 'Bengaluru', district: 'Central Zone', safetyScore: 8.6, status: 'SAFE', potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 3.2, surfaceType: 'SMOOTH_BITUMEN', managedBy: 'BBMP Central', communityWarning: 'Good condition overall. Passable by all vehicles.', centerLat: 12.97410, centerLng: 77.61020 },
+    { id: 'r-6', name: 'Old Madras Road (K.R. Puram Junction)', city: 'Bengaluru', district: 'East Zone', safetyScore: 3.8, status: 'UNSAFE', potholeCount: 5, dangerousPotholesCount: 2, averageDepthCm: 10.5, surfaceType: 'ASPHALT', managedBy: 'BBMP East', communityWarning: 'Uneven asphalt patchwork near flyover pillars.', centerLat: 13.00341, centerLng: 77.69123 },
+    { id: 'r-7', name: '100 Feet Road (Indiranagar 12th Main)', city: 'Bengaluru', district: 'East Zone', safetyScore: 6.2, status: 'MODERATE', potholeCount: 2, dangerousPotholesCount: 1, averageDepthCm: 6.4, surfaceType: 'ASPHALT', managedBy: 'BBMP East', communityWarning: 'Road patchwork near junction crossings.', centerLat: 12.97189, centerLng: 77.64115 },
+    { id: 'r-8', name: 'Koramangala 80 Feet Road (Sony World Signal)', city: 'Bengaluru', district: 'South-East', safetyScore: 5.1, status: 'MODERATE', potholeCount: 3, dangerousPotholesCount: 1, averageDepthCm: 7.2, surfaceType: 'ASPHALT', managedBy: 'BBMP South', communityWarning: 'Water-filled dip near storm drain.', centerLat: 12.93451, centerLng: 77.62582 },
+    { id: 'r-9', name: 'Industrial Bypass Road (Peenya Phase 2)', city: 'Bengaluru', district: 'North Zone', safetyScore: 2.8, status: 'HAZARDOUS', potholeCount: 7, dangerousPotholesCount: 4, averageDepthCm: 15.0, surfaceType: 'ASPHALT', managedBy: 'Karnataka PWD', communityWarning: 'Continuous trenching and broken storm water grating.', centerLat: 13.03120, centerLng: 77.51230 },
+    { id: 'r-10', name: 'Hosur Road Expressway (Electronic City Phase 1)', city: 'Bengaluru', district: 'South Zone', safetyScore: 8.4, status: 'SAFE', potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 2.8, surfaceType: 'SMOOTH_BITUMEN', managedBy: 'NHAI', communityWarning: 'High speed multi-lane expressway with minor rumble strips.', centerLat: 12.84521, centerLng: 77.66014 },
+    { id: 'r-11', name: 'Airport Elevated Expressway (Hebbal to Yelahanka)', city: 'Bengaluru', district: 'North Zone', safetyScore: 9.4, status: 'SAFE', potholeCount: 0, dangerousPotholesCount: 0, averageDepthCm: 1.8, surfaceType: 'SMOOTH_BITUMEN', managedBy: 'NHAI', communityWarning: 'Excellent surface condition and smooth drainage.', centerLat: 13.08250, centerLng: 77.59880 },
+    { id: 'r-12', name: 'NICE Ring Road (Kanakapura Interchange)', city: 'Bengaluru', district: 'South Zone', safetyScore: 8.9, status: 'SAFE', potholeCount: 1, dangerousPotholesCount: 0, averageDepthCm: 2.5, surfaceType: 'CONCRETE', managedBy: 'NICE Infra', communityWarning: 'High quality concrete surface with minimal road ripples.', centerLat: 12.84210, centerLng: 77.56210 }
 ];
 
 const SEED_POTHOLES = [
@@ -27,7 +34,13 @@ const SEED_POTHOLES = [
     { id: 'p-103', roadId: 'r-3', roadName: 'Whitefield Main Road (near Metro Pillar 142)', latitude: 12.96981, longitude: 77.74992, depthCm: 8.5, diameterCm: 45.0, severityScore: 58, severityLevel: 'MEDIUM', hazardType: 'EDGE_BREAK', isWaterLogged: false, isDangerous: false, threatToCars: 'Moderate Suspension Shock', status: 'ACTIVE' },
     { id: 'p-104', roadId: 'r-4', roadName: 'Bannerghatta Road (Gottigere Cross)', latitude: 12.89432, longitude: 77.59821, depthCm: 11.2, diameterCm: 65.0, severityScore: 74, severityLevel: 'SEVERE', hazardType: 'TRANSVERSE_TRENCH', isWaterLogged: false, isDangerous: true, threatToCars: 'Axle Misalignment & Rim Damage', status: 'ACTIVE' },
     { id: 'p-105', roadId: 'r-1', roadName: 'Old Airport Road (HAL Gate)', latitude: 12.95810, longitude: 77.64920, depthCm: 6.0, diameterCm: 35.0, severityScore: 42, severityLevel: 'MEDIUM', hazardType: 'ALLIGATOR_CRACK', isWaterLogged: false, isDangerous: false, threatToCars: 'Minor Vibration & Tread Wear', status: 'ACTIVE' },
-    { id: 'p-106', roadId: 'r-5', roadName: 'MG Road (near Trinity Metro)', latitude: 12.97410, longitude: 77.61020, depthCm: 3.5, diameterCm: 25.0, severityScore: 22, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'REPAIRED' }
+    { id: 'p-106', roadId: 'r-5', roadName: 'MG Road (near Trinity Metro)', latitude: 12.97410, longitude: 77.61020, depthCm: 3.5, diameterCm: 25.0, severityScore: 22, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'REPAIRED' },
+    { id: 'p-107', roadId: 'r-6', roadName: 'Old Madras Road (near K.R. Puram Flyover)', latitude: 13.00341, longitude: 77.69123, depthCm: 10.5, diameterCm: 70.0, severityScore: 76, severityLevel: 'SEVERE', hazardType: 'TRANSVERSE_TRENCH', isWaterLogged: false, isDangerous: true, threatToCars: 'Wheel Rim Dent & Alignment Loss', status: 'ACTIVE' },
+    { id: 'p-108', roadId: 'r-7', roadName: '100 Feet Road (Indiranagar 12th Main)', latitude: 12.97189, longitude: 77.64115, depthCm: 6.4, diameterCm: 40.0, severityScore: 52, severityLevel: 'MEDIUM', hazardType: 'EDGE_BREAK', isWaterLogged: false, isDangerous: false, threatToCars: 'Moderate Bump Shock', status: 'ACTIVE' },
+    { id: 'p-109', roadId: 'r-8', roadName: 'Koramangala 80 Feet Road (Sony World)', latitude: 12.93451, longitude: 77.62582, depthCm: 7.2, diameterCm: 50.0, severityScore: 64, severityLevel: 'MEDIUM', hazardType: 'ALLIGATOR_CRACK', isWaterLogged: true, isDangerous: false, threatToCars: 'Splash & Tread Wear', status: 'ACTIVE' },
+    { id: 'p-110', roadId: 'r-9', roadName: 'Industrial Bypass (Peenya Phase 2)', latitude: 13.03120, longitude: 77.51230, depthCm: 15.0, diameterCm: 90.0, severityScore: 96, severityLevel: 'CRITICAL', hazardType: 'DEEP_CRATER', isWaterLogged: false, isDangerous: true, threatToCars: 'Severe Underbody Breach', status: 'ACTIVE' },
+    { id: 'p-111', roadId: 'r-10', roadName: 'Hosur Road Expressway (Phase 1 Exit)', latitude: 12.84521, longitude: 77.66014, depthCm: 2.8, diameterCm: 20.0, severityScore: 26, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Negligible Impact', status: 'ACTIVE' },
+    { id: 'p-112', roadId: 'r-12', roadName: 'NICE Ring Road (Kanakapura Cross)', latitude: 12.84210, longitude: 77.56210, depthCm: 2.5, diameterCm: 18.0, severityScore: 24, severityLevel: 'LOW', hazardType: 'SURFACE_SPALL', isWaterLogged: false, isDangerous: false, threatToCars: 'Smooth Passability', status: 'ACTIVE' }
 ];
 
 const SEED_DISPATCHES = [
@@ -77,6 +90,20 @@ function executeLocalApiFallback(endpoint, options = {}) {
     if (url === '/api/roads') {
         return Promise.resolve(localDb.roads);
     }
+    if (url === '/api/roads/nearby') {
+        const queryStr = endpoint.includes('?') ? endpoint.split('?')[1] : '';
+        const params = new URLSearchParams(queryStr);
+        const lat = parseFloat(params.get('lat')) || (localDb.currentGps ? localDb.currentGps.latitude : 12.93524);
+        const lng = parseFloat(params.get('lng')) || (localDb.currentGps ? localDb.currentGps.longitude : 77.68532);
+        const limit = parseInt(params.get('limit')) || 6;
+
+        const list = localDb.roads.map(r => {
+            const distMeters = calculateDistanceMeters(lat, lng, r.centerLat, r.centerLng);
+            return Object.assign({}, r, { distanceMeters: distMeters, distanceKm: distMeters / 1000.0 });
+        });
+        list.sort((a, b) => a.distanceMeters - b.distanceMeters);
+        return Promise.resolve(list.slice(0, limit));
+    }
     if (url === '/api/potholes') {
         return Promise.resolve(localDb.potholes);
     }
@@ -115,7 +142,22 @@ function executeLocalApiFallback(endpoint, options = {}) {
             vehicle = Object.assign({}, vehicle, { groundClearanceMm: parseFloat(body.groundClearanceMm) });
         }
 
-        let pothole = localDb.potholes.find(p => p.id === body.potholeId);
+        let pothole = localDb.potholes.find(p => p.id === body.potholeId || p.roadId === body.potholeId);
+        if (!pothole && state.nearbyRoadsList) {
+            const nearby = state.nearbyRoadsList.find(r => r.id === body.potholeId);
+            if (nearby) {
+                pothole = {
+                    id: nearby.id,
+                    roadId: nearby.id,
+                    roadName: nearby.name,
+                    depthCm: nearby.averageDepthCm || 10.0,
+                    diameterCm: 60.0,
+                    severityScore: Math.round((10 - nearby.safetyScore) * 10),
+                    severityLevel: nearby.safetyScore < 4 ? 'CRITICAL' : (nearby.safetyScore < 7 ? 'SEVERE' : 'LOW'),
+                    hazardType: 'POTHOLE_CRATER'
+                };
+            }
+        }
         if (!pothole) pothole = localDb.potholes[0];
 
         const speedKmh = parseInt(body.speedKmh) || 25;
@@ -401,7 +443,27 @@ const state = {
     map: null,
     mapMarkers: [],
     dashcamAnimationId: null,
+    // Google Maps integration for "Can My Vehicle Cross" section
+    vehicleGoogleMap: null,
+    vehicleGoogleMarkers: [],
+    vehicleUserMarker: null,
+    vehicleUserAccuracyCircle: null,
+    vehicleInfoWindow: null,
+    vehicleLeafletMap: null,
+    vehicleLeafletMarkers: [],
+    isUserLocationOn: false,
+    userLocationCoords: null,
+    nearbyRoadsList: []
 };
+
+function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
+    return calculateHaversineMeters(lat1, lon1, lat2, lon2);
+}
+
+function formatDistance(meters) {
+    if (meters < 1000) return `${Math.round(meters)}m`;
+    return `${(meters / 1000).toFixed(1)} km`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -440,6 +502,18 @@ function switchTab(tabId) {
     state.activeTab = tabId;
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-tab') === tabId));
     document.querySelectorAll('.tab-page').forEach(p => p.classList.toggle('active', p.id === tabId));
+
+    if (tabId === 'tab-vehicle') {
+        if (state.vehicleGoogleMap && typeof google !== 'undefined') {
+            google.maps.event.trigger(state.vehicleGoogleMap, 'resize');
+            const center = state.userLocationCoords ?
+                { lat: state.userLocationCoords.latitude, lng: state.userLocationCoords.longitude } :
+                { lat: state.currentGps.latitude, lng: state.currentGps.longitude };
+            state.vehicleGoogleMap.setCenter(center);
+        } else if (state.vehicleLeafletMap) {
+            setTimeout(() => state.vehicleLeafletMap.invalidateSize(), 200);
+        }
+    }
 
     if (tabId === 'tab-map') {
         if (state.googleMap && typeof google !== 'undefined') {
@@ -496,8 +570,510 @@ function initVehicleSimulator() {
     document.getElementById('btnCalculatePassability')?.addEventListener('click', runVehiclePassabilityEvaluation);
     document.getElementById('selectTestPothole')?.addEventListener('change', (e) => {
         state.selectedPotholeId = e.target.value;
+        // Also highlight matching card if present
+        const activeCard = document.querySelector(`.nr-road-card[data-pothole-id="${e.target.value}"]`);
+        if (activeCard) {
+            document.querySelectorAll('.nr-road-card').forEach(c => c.classList.remove('active'));
+            activeCard.classList.add('active');
+        }
         runVehiclePassabilityEvaluation();
     });
+
+    // Location toggle and recenter buttons
+    document.getElementById('btnToggleVehicleLocation')?.addEventListener('click', toggleUserLocation);
+    document.getElementById('btnRecenterVehicleMap')?.addEventListener('click', recenterVehicleMap);
+
+    // Initialize Google Map inside Vehicle Section
+    initVehicleSectionMap();
+}
+
+// Location and Google Maps Integration for "Can My Vehicle Cross" section
+function initVehicleSectionMap() {
+    const mapEl = document.getElementById('vehicleSectionGoogleMap');
+    if (!mapEl) return;
+
+    if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+        createVehicleGoogleMap(mapEl);
+    } else {
+        let attempts = 0;
+        const checkTimer = setInterval(() => {
+            attempts++;
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                clearInterval(checkTimer);
+                createVehicleGoogleMap(mapEl);
+            } else if (attempts >= 8) {
+                clearInterval(checkTimer);
+                createVehicleLeafletMap(mapEl);
+            }
+        }, 250);
+    }
+}
+
+function createVehicleGoogleMap(mapEl) {
+    const defaultCenter = state.userLocationCoords ?
+        { lat: state.userLocationCoords.latitude, lng: state.userLocationCoords.longitude } :
+        { lat: state.currentGps.latitude, lng: state.currentGps.longitude };
+
+    const mapOptions = {
+        center: defaultCenter,
+        zoom: 13,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true,
+        styles: [
+            { elementType: "geometry", stylers: [{ color: "#131b2e" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#131b2e" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#94a3b8" }] },
+            { featureType: "road", elementType: "geometry", stylers: [{ color: "#232f48" }] },
+            { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1a2438" }] },
+            { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#cbd5e1" }] },
+            { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#1d4ed8" }] },
+            { featureType: "water", elementType: "geometry", stylers: [{ color: "#090d16" }] },
+            { featureType: "poi", stylers: [{ visibility: "off" }] }
+        ]
+    };
+
+    state.vehicleGoogleMap = new google.maps.Map(mapEl, mapOptions);
+    state.vehicleInfoWindow = new google.maps.InfoWindow();
+    state.vehicleGoogleMarkers = [];
+
+    // Initial render of nearby roads
+    refreshVehicleNearbyRoads();
+}
+
+function createVehicleLeafletMap(mapEl) {
+    if (typeof L === 'undefined') return;
+    const defaultCenter = state.userLocationCoords ?
+        [state.userLocationCoords.latitude, state.userLocationCoords.longitude] :
+        [state.currentGps.latitude, state.currentGps.longitude];
+
+    state.vehicleLeafletMap = L.map(mapEl).setView(defaultCenter, 13);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(state.vehicleLeafletMap);
+
+    refreshVehicleNearbyRoads();
+}
+
+function toggleUserLocation() {
+    state.isUserLocationOn = !state.isUserLocationOn;
+    const btn = document.getElementById('btnToggleVehicleLocation');
+    const btnText = document.getElementById('vehicleLocationBtnText');
+    const pulseDot = document.getElementById('locPulseDot');
+    const statusText = document.getElementById('vehicleLocStatusText');
+    const centerBtn = document.getElementById('btnRecenterVehicleMap');
+
+    if (state.isUserLocationOn) {
+        if (btn) btn.classList.add('active');
+        if (btnText) btnText.textContent = "Turn Off Location";
+        if (pulseDot) pulseDot.className = "loc-pulse-indicator loading";
+        if (statusText) statusText.textContent = "Detecting your device GPS location via browser...";
+        if (centerBtn) centerBtn.classList.remove('hidden');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    state.userLocationCoords = { latitude: lat, longitude: lng };
+
+                    if (pulseDot) pulseDot.className = "loc-pulse-indicator active";
+                    if (statusText) {
+                        statusText.textContent = `📍 Location Active (${lat.toFixed(4)}°, ${lng.toFixed(4)}°) • Loaded 6 closest roads`;
+                    }
+
+                    // Update server GPS point as well
+                    universalFetch('/api/gps/update', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ latitude: lat, longitude: lng, address: "My Live Location" })
+                    }).catch(() => {});
+
+                    refreshVehicleNearbyRoads(lat, lng);
+                },
+                (err) => {
+                    console.warn("Browser geolocation failed or was denied:", err.message);
+                    // Fallback to server's simulated GPS position
+                    const fallbackLat = state.currentGps ? state.currentGps.latitude : 12.93524;
+                    const fallbackLng = state.currentGps ? state.currentGps.longitude : 77.68532;
+                    state.userLocationCoords = { latitude: fallbackLat, longitude: fallbackLng };
+
+                    if (pulseDot) pulseDot.className = "loc-pulse-indicator active";
+                    if (statusText) {
+                        statusText.textContent = `📍 Using Vehicle Telemetry GPS (${fallbackLat.toFixed(4)}°, ${fallbackLng.toFixed(4)}°) • Loaded 6 closest roads`;
+                    }
+
+                    refreshVehicleNearbyRoads(fallbackLat, fallbackLng);
+                },
+                { enableHighAccuracy: true, timeout: 6000, maximumAge: 0 }
+            );
+        } else {
+            // Geolocation unsupported
+            const fallbackLat = state.currentGps ? state.currentGps.latitude : 12.93524;
+            const fallbackLng = state.currentGps ? state.currentGps.longitude : 77.68532;
+            state.userLocationCoords = { latitude: fallbackLat, longitude: fallbackLng };
+            if (pulseDot) pulseDot.className = "loc-pulse-indicator active";
+            if (statusText) {
+                statusText.textContent = `📍 Using Vehicle GPS (${fallbackLat.toFixed(4)}°, ${fallbackLng.toFixed(4)}°) • Loaded 6 closest roads`;
+            }
+            refreshVehicleNearbyRoads(fallbackLat, fallbackLng);
+        }
+    } else {
+        // Turning OFF location
+        if (btn) btn.classList.remove('active');
+        if (btnText) btnText.textContent = "Turn On My Location";
+        if (pulseDot) pulseDot.className = "loc-pulse-indicator";
+        if (statusText) statusText.textContent = "Location: Off • Showing standard road catalog";
+        if (centerBtn) centerBtn.classList.add('hidden');
+        state.userLocationCoords = null;
+
+        // Remove user marker from vehicle map
+        if (state.vehicleUserMarker) {
+            state.vehicleUserMarker.setMap(null);
+            state.vehicleUserMarker = null;
+        }
+        if (state.vehicleUserAccuracyCircle) {
+            state.vehicleUserAccuracyCircle.setMap(null);
+            state.vehicleUserAccuracyCircle = null;
+        }
+
+        refreshVehicleNearbyRoads(); // Refresh with default/all
+    }
+}
+
+function recenterVehicleMap() {
+    const lat = state.userLocationCoords ? state.userLocationCoords.latitude : (state.currentGps ? state.currentGps.latitude : 12.93524);
+    const lng = state.userLocationCoords ? state.userLocationCoords.longitude : (state.currentGps ? state.currentGps.longitude : 77.68532);
+
+    if (state.vehicleGoogleMap) {
+        state.vehicleGoogleMap.panTo({ lat, lng });
+        state.vehicleGoogleMap.setZoom(14);
+    } else if (state.vehicleLeafletMap) {
+        state.vehicleLeafletMap.panTo([lat, lng]);
+        state.vehicleLeafletMap.setZoom(14);
+    }
+}
+
+function refreshVehicleNearbyRoads(lat, lng) {
+    const userLat = lat || (state.userLocationCoords ? state.userLocationCoords.latitude : (state.currentGps ? state.currentGps.latitude : 12.93524));
+    const userLng = lng || (state.userLocationCoords ? state.userLocationCoords.longitude : (state.currentGps ? state.currentGps.longitude : 77.68532));
+
+    universalFetch(`/api/roads/nearby?lat=${userLat}&lng=${userLng}&limit=6`)
+        .then(roads => {
+            if (!roads || roads.length === 0) {
+                roads = computeLocalNearbyRoads(userLat, userLng, 6);
+            }
+            // If the user's location is far outside the surveyed dataset (> 60 km away)
+            // dynamically synthesize 6 realistic nearby roads centered around their actual GPS location
+            if (roads.length > 0 && roads[0].distanceMeters > 60000 && state.isUserLocationOn) {
+                roads = generateLocalizedNearbyRoads(userLat, userLng);
+            }
+
+            state.nearbyRoadsList = roads;
+            renderNearbyRoadsUI(roads, userLat, userLng);
+        })
+        .catch(err => {
+            console.error("Error fetching nearby roads:", err);
+            const roads = computeLocalNearbyRoads(userLat, userLng, 6);
+            state.nearbyRoadsList = roads;
+            renderNearbyRoadsUI(roads, userLat, userLng);
+        });
+}
+
+function computeLocalNearbyRoads(userLat, userLng, limit = 6) {
+    const sourceRoads = (state.roads && state.roads.length > 0) ? state.roads : localDb.roads;
+    const computed = sourceRoads.map(r => {
+        const dist = calculateDistanceMeters(userLat, userLng, r.centerLat, r.centerLng);
+        return Object.assign({}, r, { distanceMeters: dist, distanceKm: dist / 1000.0 });
+    });
+    computed.sort((a, b) => a.distanceMeters - b.distanceMeters);
+    return computed.slice(0, limit);
+}
+
+function generateLocalizedNearbyRoads(lat, lng) {
+    const offsets = [
+        { dLat: 0.0012, dLng: 0.0010, dist: 165, name: "Main Arterial Avenue", safety: 3.2, status: "UNSAFE", depth: 12.5, sev: 86, type: "DEEP_CRATER" },
+        { dLat: -0.0022, dLng: 0.0018, dist: 340, name: "Cross Road & Metro Corridor", safety: 2.8, status: "HAZARDOUS", depth: 16.0, sev: 92, type: "WATER_MASKED" },
+        { dLat: 0.0035, dLng: -0.0025, dist: 590, name: "Station Link Bypass", safety: 4.5, status: "CAUTION", depth: 8.8, sev: 64, type: "EDGE_BREAK" },
+        { dLat: -0.0050, dLng: -0.0040, dist: 890, name: "Ring Road North Junction", safety: 5.6, status: "MODERATE", depth: 6.2, sev: 48, type: "ALLIGATOR_CRACK" },
+        { dLat: 0.0080, dLng: 0.0060, dist: 1350, name: "Industrial Expressway Exit", safety: 6.8, status: "MODERATE", depth: 4.8, sev: 38, type: "SURFACE_SPALL" },
+        { dLat: 0.0120, dLng: -0.0080, dist: 1980, name: "Central Highway Section", safety: 8.8, status: "SAFE", depth: 2.5, sev: 20, type: "SURFACE_SPALL" }
+    ];
+
+    return offsets.map((o, idx) => ({
+        id: `r-local-${idx + 1}`,
+        name: o.name,
+        city: "Your Local Area",
+        district: "GPS Vicinity",
+        safetyScore: o.safety,
+        status: o.status,
+        dangerousPotholesCount: o.safety < 5 ? 2 : 0,
+        averageDepthCm: o.depth,
+        centerLat: lat + o.dLat,
+        centerLng: lng + o.dLng,
+        distanceMeters: o.dist,
+        distanceKm: o.dist / 1000.0,
+        communityWarning: `Active road hazard detected ${o.dist}m away from your current location.`
+    }));
+}
+
+function renderNearbyRoadsUI(roads, userLat, userLng) {
+    const grid = document.getElementById('nearbyRoadsGrid');
+    const select = document.getElementById('selectTestPothole');
+    if (!roads || roads.length === 0) return;
+
+    // Update count badge
+    const badge = document.getElementById('vehicleMapRoadBadge');
+    if (badge) badge.textContent = `${roads.length} Nearby Roads`;
+
+    // Populate dropdown
+    if (select) {
+        select.innerHTML = '';
+        roads.forEach((r, idx) => {
+            const pothole = findOrCreatePotholeForRoad(r);
+            const opt = document.createElement('option');
+            opt.value = pothole.id;
+            opt.textContent = `${idx + 1}. ${r.name} (${formatDistance(r.distanceMeters)} away • ${pothole.depthCm} cm deep, Sev: ${pothole.severityScore}%)`;
+            select.appendChild(opt);
+        });
+    }
+
+    // Populate 6 Nearby Road Cards
+    if (grid) {
+        grid.innerHTML = '';
+        roads.forEach((r, idx) => {
+            const pothole = findOrCreatePotholeForRoad(r);
+            const card = document.createElement('div');
+            card.className = `nr-road-card ${idx === 0 ? 'active' : ''}`;
+            card.dataset.roadId = r.id;
+            card.dataset.potholeId = pothole.id;
+
+            const scoreStatus = r.safetyScore <= 3.5 ? 'critical' : (r.safetyScore <= 6.0 ? 'warning' : 'safe');
+            const scoreLabel = r.safetyScore <= 3.5 ? 'CRITICAL' : (r.safetyScore <= 6.0 ? 'UNSAFE' : (r.safetyScore <= 8.0 ? 'CAUTION' : 'SAFE'));
+
+            card.innerHTML = `
+                <div class="nr-card-left">
+                    <span class="nr-rank-badge">#${idx + 1}</span>
+                    <div class="nr-road-details">
+                        <div class="nr-road-name" title="${r.name}">${r.name}</div>
+                        <div class="nr-hazard-tag"><i class="fa-solid fa-triangle-exclamation"></i> ${pothole.depthCm} cm crater</div>
+                    </div>
+                </div>
+                <div class="nr-card-right">
+                    <span class="nr-distance-badge"><i class="fa-solid fa-location-dot"></i> ${formatDistance(r.distanceMeters)}</span>
+                    <span class="nr-status-badge ${scoreStatus}">${scoreLabel}</span>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                selectNearbyRoad(r.id, pothole.id);
+            });
+
+            grid.appendChild(card);
+        });
+    }
+
+    // Update markers on vehicle Google Map
+    updateVehicleMapMarkers(roads, userLat, userLng);
+
+    // Auto-select #1 closest road if none selected or on fresh load
+    if (roads.length > 0) {
+        const topPothole = findOrCreatePotholeForRoad(roads[0]);
+        selectNearbyRoad(roads[0].id, topPothole.id, true);
+    }
+}
+
+function findOrCreatePotholeForRoad(road) {
+    let pothole = state.potholes.find(p => p.roadId === road.id || (p.roadName && p.roadName.includes(road.name)));
+    if (!pothole) {
+        pothole = localDb.potholes.find(p => p.roadId === road.id);
+    }
+    if (!pothole) {
+        const depth = road.averageDepthCm || (road.safetyScore < 4 ? 14.0 : (road.safetyScore < 7 ? 8.5 : 3.0));
+        pothole = {
+            id: `p-${road.id}`,
+            roadId: road.id,
+            roadName: road.name,
+            depthCm: depth,
+            diameterCm: 65.0,
+            severityScore: Math.round(Math.max(15, (10 - road.safetyScore) * 10)),
+            severityLevel: road.safetyScore < 4 ? 'CRITICAL' : (road.safetyScore < 7 ? 'SEVERE' : 'LOW'),
+            hazardType: 'POTHOLE_CRATER',
+            isDangerous: road.safetyScore < 6,
+            threatToCars: road.safetyScore < 4 ? 'Catastrophic Underbody Breach' : 'Suspension Stress'
+        };
+    }
+    return pothole;
+}
+
+function selectNearbyRoad(roadId, potholeId, shouldEvaluate = true) {
+    state.selectedPotholeId = potholeId;
+
+    // Update select dropdown
+    const select = document.getElementById('selectTestPothole');
+    if (select) select.value = potholeId;
+
+    // Highlight active card
+    document.querySelectorAll('.nr-road-card').forEach(c => {
+        c.classList.toggle('active', c.dataset.roadId === roadId || c.dataset.potholeId === potholeId);
+    });
+
+    // Pan Google Map
+    const road = state.nearbyRoadsList.find(r => r.id === roadId);
+    if (road && state.vehicleGoogleMap) {
+        state.vehicleGoogleMap.panTo({ lat: road.centerLat, lng: road.centerLng });
+        const marker = state.vehicleGoogleMarkers.find(m => m.get('roadId') === roadId);
+        if (marker && state.vehicleInfoWindow) {
+            const pothole = findOrCreatePotholeForRoad(road);
+            const content = `
+                <div style="color: #0f172a; font-family: Inter, sans-serif; min-width: 200px; padding: 4px;">
+                    <div style="font-size: 10px; font-weight: 800; color: #0284c7; text-transform: uppercase;">Nearby Road Selected</div>
+                    <h4 style="margin: 2px 0 4px 0; font-size: 13px; font-weight: bold;">${road.name}</h4>
+                    <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">📍 ${formatDistance(road.distanceMeters)} away • ${road.city}</div>
+                    <div style="font-size: 11px; margin-bottom: 4px;"><strong>Pothole Depth:</strong> ${pothole.depthCm} cm | <strong>Safety:</strong> ${road.safetyScore}/10</div>
+                </div>
+            `;
+            state.vehicleInfoWindow.setContent(content);
+            state.vehicleInfoWindow.open(state.vehicleGoogleMap, marker);
+        }
+    }
+
+    if (shouldEvaluate) {
+        runVehiclePassabilityEvaluation();
+    }
+}
+
+function updateVehicleMapMarkers(roads, userLat, userLng) {
+    if (state.vehicleGoogleMap && typeof google !== 'undefined') {
+        // Clear previous road markers
+        state.vehicleGoogleMarkers.forEach(m => m.setMap(null));
+        state.vehicleGoogleMarkers = [];
+
+        // Draw or update User Location marker
+        const userPos = { lat: userLat, lng: userLng };
+        if (!state.vehicleUserMarker) {
+            state.vehicleUserMarker = new google.maps.Marker({
+                position: userPos,
+                map: state.vehicleGoogleMap,
+                title: "Your Location",
+                zIndex: 999,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    fillColor: '#38bdf8',
+                    fillOpacity: 1,
+                    strokeColor: '#ffffff',
+                    strokeWeight: 2.5
+                }
+            });
+            state.vehicleUserAccuracyCircle = new google.maps.Circle({
+                map: state.vehicleGoogleMap,
+                center: userPos,
+                radius: 120,
+                fillColor: '#38bdf8',
+                fillOpacity: 0.15,
+                strokeColor: '#38bdf8',
+                strokeOpacity: 0.5,
+                strokeWeight: 1
+            });
+        } else {
+            state.vehicleUserMarker.setPosition(userPos);
+            if (state.vehicleUserAccuracyCircle) {
+                state.vehicleUserAccuracyCircle.setCenter(userPos);
+            }
+        }
+
+        // Plot the 6 road markers
+        const bounds = new google.maps.LatLngBounds();
+        bounds.extend(userPos);
+
+        roads.forEach((r, idx) => {
+            const pos = { lat: r.centerLat, lng: r.centerLng };
+            bounds.extend(pos);
+
+            const color = r.safetyScore <= 3.5 ? '#f43f5e' : (r.safetyScore <= 6.0 ? '#f59e0b' : '#10b981');
+            const pothole = findOrCreatePotholeForRoad(r);
+
+            const marker = new google.maps.Marker({
+                position: pos,
+                map: state.vehicleGoogleMap,
+                title: `${idx + 1}. ${r.name} (${formatDistance(r.distanceMeters)})`,
+                label: {
+                    text: String(idx + 1),
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                    fontSize: '11px'
+                },
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 13,
+                    fillColor: color,
+                    fillOpacity: 1,
+                    strokeColor: '#ffffff',
+                    strokeWeight: 2
+                }
+            });
+
+            marker.set('roadId', r.id);
+            marker.set('potholeId', pothole.id);
+
+            marker.addListener('click', () => {
+                selectNearbyRoad(r.id, pothole.id);
+            });
+
+            state.vehicleGoogleMarkers.push(marker);
+        });
+
+        // Fit map bounds to view all 6 roads and user location comfortably
+        state.vehicleGoogleMap.fitBounds(bounds, { top: 35, right: 35, bottom: 35, left: 35 });
+        const listener = google.maps.event.addListener(state.vehicleGoogleMap, "idle", () => {
+            if (state.vehicleGoogleMap.getZoom() > 15) {
+                state.vehicleGoogleMap.setZoom(15);
+            }
+            google.maps.event.removeListener(listener);
+        });
+        return;
+    }
+
+    // Leaflet fallback
+    if (state.vehicleLeafletMap && typeof L !== 'undefined') {
+        state.vehicleLeafletMarkers.forEach(m => state.vehicleLeafletMap.removeLayer(m));
+        state.vehicleLeafletMarkers = [];
+
+        // User pin
+        const userIcon = L.divIcon({
+            className: 'user-map-pin',
+            html: `<div style="width: 18px; height: 18px; background: #38bdf8; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 12px #38bdf8;"></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+        const userMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(state.vehicleLeafletMap);
+        state.vehicleLeafletMarkers.push(userMarker);
+
+        const group = [ [userLat, userLng] ];
+
+        roads.forEach((r, idx) => {
+            const color = r.safetyScore <= 3.5 ? '#f43f5e' : (r.safetyScore <= 6.0 ? '#f59e0b' : '#10b981');
+            const pothole = findOrCreatePotholeForRoad(r);
+            const roadIcon = L.divIcon({
+                className: 'road-map-pin',
+                html: `<div style="width: 24px; height: 24px; background: ${color}; border: 2px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: bold; box-shadow: 0 0 10px ${color};">${idx + 1}</div>`,
+                iconSize: [26, 26],
+                iconAnchor: [13, 13]
+            });
+            const marker = L.marker([r.centerLat, r.centerLng], { icon: roadIcon }).addTo(state.vehicleLeafletMap);
+            marker.on('click', () => {
+                selectNearbyRoad(r.id, pothole.id);
+            });
+            state.vehicleLeafletMarkers.push(marker);
+            group.push([r.centerLat, r.centerLng]);
+        });
+
+        state.vehicleLeafletMap.fitBounds(group, { padding: [30, 30] });
+    }
 }
 
 function runVehiclePassabilityEvaluation() {
@@ -1275,6 +1851,7 @@ function loadRoads() {
         if (!roads) return;
         state.roads = roads;
         renderRoadsDirectory(roads);
+        refreshVehicleNearbyRoads();
     })
     .catch(err => console.error("Error loading roads:", err));
 }
@@ -1287,15 +1864,18 @@ function loadPotholes() {
         renderRecentHazards(potholes);
         renderMapMarkers('all');
 
-        const select = document.getElementById('selectTestPothole');
-        if (select) {
-            select.innerHTML = '';
-            potholes.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.id;
-                opt.textContent = `${p.roadName} (${p.depthCm} cm deep, Sev: ${p.severityScore}%)`;
-                select.appendChild(opt);
-            });
+        // Only populate standard potholes if user location is NOT actively showing the 6 nearby roads
+        if (!state.isUserLocationOn || !state.nearbyRoadsList || state.nearbyRoadsList.length === 0) {
+            const select = document.getElementById('selectTestPothole');
+            if (select) {
+                select.innerHTML = '';
+                potholes.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.id;
+                    opt.textContent = `${p.roadName} (${p.depthCm} cm deep, Sev: ${p.severityScore}%)`;
+                    select.appendChild(opt);
+                });
+            }
         }
     })
     .catch(err => console.error("Error loading potholes:", err));
