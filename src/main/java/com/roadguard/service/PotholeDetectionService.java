@@ -64,6 +64,36 @@ public class PotholeDetectionService {
             13.198900, 77.706800, 2.1, 18.0, 24, "LOW",
             "SURFACE_SPALL", false, "sample_pothole_minor.jpg"
         ));
+
+        addPredefinedPothole(new Pothole(
+            "p-108", "road-108", "Nice Ring Road (Kanakapura Expressway)",
+            12.842100, 77.562100, 2.5, 20.0, 28, "LOW",
+            "SURFACE_SPALL", false, "sample_pothole_minor.jpg"
+        ));
+
+        addPredefinedPothole(new Pothole(
+            "p-109", "road-109", "Whitefield Main Road (Hope Farm Corridor)",
+            12.969810, 77.749920, 7.8, 45.0, 72, "SEVERE",
+            "EDGE_BREAK", false, "sample_pothole_medium.jpg"
+        ));
+
+        addPredefinedPothole(new Pothole(
+            "p-110", "road-110", "100 Feet Road (Indiranagar 12th Main to Domlur)",
+            12.971890, 77.641150, 4.5, 30.0, 52, "MEDIUM",
+            "SURFACE_SPALL", false, "sample_pothole_medium.jpg"
+        ));
+
+        addPredefinedPothole(new Pothole(
+            "p-111", "road-111", "Koramangala 80 Feet Road (Sony World Signal)",
+            12.934510, 77.625820, 5.8, 42.0, 64, "MEDIUM",
+            "ALLIGATOR_CRACK", true, "sample_pothole_water.jpg"
+        ));
+
+        addPredefinedPothole(new Pothole(
+            "p-112", "road-112", "Hosur Road Expressway (Electronic City Phase 1)",
+            12.845210, 77.660140, 2.8, 22.0, 30, "LOW",
+            "SURFACE_SPALL", false, "sample_pothole_minor.jpg"
+        ));
     }
 
     private void addPredefinedPothole(Pothole p) {

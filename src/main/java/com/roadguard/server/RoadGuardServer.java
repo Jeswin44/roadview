@@ -46,6 +46,7 @@ public class RoadGuardServer {
         server.createContext("/api/potholes", new PotholesHandler());
         server.createContext("/api/potholes/detect", new PotholeDetectHandler());
         server.createContext("/api/roads", new RoadsHandler());
+        server.createContext("/api/roads/nearby", new NearbyRoadsHandler());
         server.createContext("/api/roads/unsafe", new UnsafeRoadsHandler());
         server.createContext("/api/vehicles", new VehiclesHandler());
         server.createContext("/api/vehicles/evaluate", new VehicleEvaluateHandler());
@@ -196,6 +197,45 @@ public class RoadGuardServer {
         }
     }
 
+    private class NearbyRoadsHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                HttpUtils.sendJsonResponse(exchange, 200, "{}");
+                return;
+            }
+            Map<String, String> query = HttpUtils.parseQueryParams(exchange.getRequestURI().getQuery());
+            double lat = 12.935240;
+            double lng = 77.685320;
+            int limit = 6;
+
+            if (query.containsKey("lat")) {
+                try { lat = Double.parseDouble(query.get("lat")); } catch (Exception ignored) {}
+            } else {
+                GpsCoordinate pos = gpsService.getCurrentPosition();
+                if (pos != null) {
+                    lat = pos.getLatitude();
+                    lng = pos.getLongitude();
+                }
+            }
+            if (query.containsKey("lng")) {
+                try { lng = Double.parseDouble(query.get("lng")); } catch (Exception ignored) {}
+            }
+            if (query.containsKey("limit")) {
+                try { limit = Integer.parseInt(query.get("limit")); } catch (Exception ignored) {}
+            }
+
+            List<RoadSafetyService.RoadDistance> list = roadService.getNearbyRoads(lat, lng, limit);
+            StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i).toJson());
+                if (i < list.size() - 1) sb.append(",");
+            }
+            sb.append("]");
+            HttpUtils.sendJsonResponse(exchange, 200, sb.toString());
+        }
+    }
+
     private class UnsafeRoadsHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -263,6 +303,12 @@ public class RoadGuardServer {
             Pothole pothole = null;
             if (potholeId != null && !potholeId.isEmpty()) {
                 pothole = potholeService.getPotholeById(potholeId);
+                if (pothole == null) {
+                    List<Pothole> roadPotholes = potholeService.getPotholesByRoad(potholeId);
+                    if (!roadPotholes.isEmpty()) {
+                        pothole = roadPotholes.get(0);
+                    }
+                }
             }
             if (pothole == null) {
                 // If no specific pothole is chosen, pick the most severe pothole currently on the road
