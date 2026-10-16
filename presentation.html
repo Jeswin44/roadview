@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadGuard AI — Project Presentation Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --surface-dark: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(56, 189, 248, 0.2);
+            --primary-cyan: #38bdf8;
+            --primary-blue: #0284c7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(2, 132, 199, 0.12) 0px, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Top Header Bar */
+        .pres-header {
+            height: 60px;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 100;
+        }
+
+        .pres-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .pres-brand i {
+            color: var(--primary-cyan);
+            font-size: 1.3rem;
+        }
+
+        .deck-badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 9999px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .pres-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Slide Container */
+        .slides-viewport {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            max-width: 1200px;
+            height: calc(100vh - 160px);
+            background: var(--surface-dark);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 44px 56px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: scale(0.97) translateY(10px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Slide Typography */
+        .slide-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-cyan);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slide-title {
+            font-family: var(--font-heading);
+            font-size: 2.3rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .slide-title span {
+            color: var(--primary-cyan);
+        }
+
+        .slide-content {
+            flex: 1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* Grid Cards inside Slides */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .glass-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .glass-card p, .glass-card ul {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .glass-card ul {
+            padding-left: 20px;
+        }
+
+        .glass-card li {
+            margin-bottom: 6px;
+        }
+
+        /* Tables inside Slides */
+        .pres-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            margin-top: 12px;
+        }
+
+        .pres-table th, .pres-table td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pres-table th {
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--primary-cyan);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        .pres-table tr:hover td {
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .badge-danger {
+            background: rgba(244, 63, 94, 0.2);
+            color: var(--accent-rose);
+            border: 1px solid var(--accent-rose);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .badge-warn {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-amber);
+            border: 1px solid var(--accent-amber);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .badge-safe {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+            border: 1px solid var(--accent-emerald);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: #0f172a;
+            border-left: 4px solid var(--primary-cyan);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: #38bdf8;
+            margin: 12px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* Title Slide Layout */
+        .title-slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            gap: 20px;
+        }
+
+        .title-slide-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .title-main {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title-sub {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+
+        .title-meta-box {
+            display: flex;
+            gap: 32px;
+            margin-top: 30px;
+            padding: 16px 36px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            font-size: 0.95rem;
+        }
+
+        .t-item span {
+            color: var(--primary-cyan);
+            font-weight: 600;
+        }
+
+        /* Bottom Controls Bar */
+        .pres-footer {
+            height: 70px;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 36px;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .slide-counter span {
+            color: var(--primary-cyan);
+        }
+
+        .progress-bar-container {
+            flex: 1;
+            max-width: 450px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 0 30px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-cyan), var(--primary-blue));
+            width: 8.33%;
+            transition: width 0.3s ease;
+        }
+
+        .btn-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-ctrl {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ctrl:hover {
+            background: var(--primary-blue);
+            border-color: var(--primary-cyan);
+        }
+
+        .btn-ctrl:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: transparent;
+        }
+
+        .key-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="pres-header">
+        <div class="pres-brand">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>RoadGuard AI</span>
+            <span class="deck-badge">Project Presentation Deck</span>
+        </div>
+        <div class="pres-meta">
+            <span><i class="fa-solid fa-code text-cyan"></i> Java 21 + Full-Stack</span>
+            <span><i class="fa-brands fa-google text-cyan"></i> Google Maps Platform</span>
+            <span><i class="fa-solid fa-building-columns text-cyan"></i> ITS & Civic Tech</span>
+        </div>
+    </header>
+
+    <!-- Slides Viewport -->
+    <main class="slides-viewport">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide-1">
+            <div class="title-slide-container">
+                <div class="title-slide-logo">
+                    <i class="fa-solid fa-road-barrier"></i>
+                </div>
+                <h1 class="title-main">RoadGuard AI</h1>
+                <p class="title-sub">
+                    Intelligent Road Hazard Detection, Physics-Based Vehicle Passability & Autonomous Municipal Dispatch System
+                </p>
+                <div class="title-meta-box">
+                    <div class="t-item"><span>Language:</span> Pure Java 21 LTS</div>
+                    <div class="t-item"><span>Architecture:</span> Layered Microservices & REST</div>
+                    <div class="t-item"><span>Maps:</span> Google Maps Road Radar</div>
+                    <div class="t-item"><span>Domain:</span> Intelligent Transportation Systems</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide" id="slide-2">
+            <div class="slide-tag"><i class="fa-solid fa-triangle-exclamation"></i> The Challenge</div>
+            <h2 class="slide-title">Problem Statement & <span>Real-World Motivation</span></h2>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-car-burst text-rose"></i> The Urban Hazard Epidemic</h4>
+                        <ul>
+                            <li>Rapid infrastructure degradation creates acute craters, waterlogged sinkholes, and jagged trenches.</li>
+                            <li>Thousands of accidents and vehicle breakdowns happen daily due to unmapped road obstacles.</li>
+                            <li>Standard GPS apps (Google Maps, Waze) alert for traffic slowdowns, but <strong>never warn about underbody road obstacles</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-motorcycle text-amber"></i> The Vehicle Clearance Gap</h4>
+                        <ul>
+                            <li><strong>Sedans & Hatchbacks (160–165mm):</strong> Suffer oil sump fractures, bumper shearing, and subframe misalignment.</li>
+                            <li><strong>Two-Wheelers:</strong> Face sudden front-wheel entrapment and catastrophic rider rollover when depth exceeds 8–10 cm.</li>
+                            <li><strong>SUVs:</strong> Pass safely over hazards that would total a standard low-slung passenger vehicle.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card" style="grid-column: span 2;">
+                        <h4><i class="fa-solid fa-hourglass-half text-cyan"></i> The Municipal Reporting Bottleneck</h4>
+                        <p>Citizens rarely report road damage due to tedious manual bureaucracy. As a result, municipal agencies (NHAI, BBMP, PWD) remain unaware of hazardous sinkholes until major accidents occur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Proposed Solution -->
+        <div class="slide" id="slide-3">
+            <div class="slide-tag"><i class="fa-solid fa-lightbulb"></i> The Innovation</div>
+            <h2 class="slide-title">Proposed Solution: <span>RoadGuard AI</span></h2>
+            <div class="slide-content">
+                <div class="grid-4">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-camera-retro text-cyan"></i> 1. Road Vision Scanner</h4>
+                        <p>Simulates computer vision scanning from driver dashcams, estimating pothole depth, diameter, and classification.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-calculator text-emerald"></i> 2. Passability Physics</h4>
+                        <p>Calculates dynamic suspension compression, speed factors, and ground clearance margins for specific cars & bikes.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-location-crosshairs text-amber"></i> 3. Google Maps Radar</h4>
+                        <p>Integrates browser GPS to detect and visualize the 6 closest road segments with instant color-coded safety pins.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-file-invoice text-rose"></i> 4. Municipal Dispatch</h4>
+                        <p>Automatically triggers SLA repair tickets (24h Emergency / 48h Priority) directly to road authorities with official tracking IDs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: System Architecture -->
+        <div class="slide" id="slide-4">
+            <div class="slide-tag"><i class="fa-solid fa-sitemap"></i> High-Level Architecture</div>
+            <h2 class="slide-title">End-to-End <span>System Architecture</span></h2>
+            <div class="slide-content">
+                <table class="pres-table">
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Components / Classes</th>
+                            <th>Technology</th>
+                            <th>Responsibilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Backend Core</strong></td>
+                            <td><code>VehiclePassabilityService</code>, <code>RoadSafetyService</code>, <code>PotholeDetectionService</code></td>
+                            <td>Java 21 LTS</td>
+                            <td>Dynamic suspension math, Haversine geospatial calculations, hazard indexing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Server & REST API</strong></td>
+                            <td><code>RoadGuardServer</code>, <code>HttpUtils</code></td>
+                            <td><code>com.sun.net.httpserver</code></td>
+                            <td>Lightweight embedded HTTP server; zero bulky servlet container overhead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geospatial Radar</strong></td>
+                            <td>Google Maps JavaScript API + Leaflet fallback</td>
+                            <td>Google Cloud Platform</td>
+                            <td>Pins 6 closest roads, computes bounds, updates interactive markers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frontend Client</strong></td>
+                            <td><code>index.html</code>, <code>styles.css</code>, <code>app.js</code></td>
+                            <td>HTML5 / CSS3 / Vanilla JS</td>
+                            <td>Dark-mode glassmorphic dashboard, audio speech alerts, camera feed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Bridge</strong></td>
+                            <td><code>api/index.js</code>, <code>vercel.json</code></td>
+                            <td>Serverless Node.js API</td>
+                            <td>Enables 1-click cloud deployments without dedicated VPS requirements</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 5: Mathematical Foundations -->
+        <div class="slide" id="slide-5">
+            <div class="slide-tag"><i class="fa-solid fa-square-root-variable"></i> Formulations</div>
+            <h2 class="slide-title">Mathematical & <span>Physical Modeling</span></h2>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-globe text-cyan"></i> 1. Haversine Great-Circle Distance</h4>
+                        <p>Used to find the closest roads from GPS coordinate (φ1, λ1) to road center (φ2, λ2):</p>
+                        <div class="formula-box">
+                            a = sin²(Δφ/2) + cos(φ1)·cos(φ2)·sin²(Δλ/2)<br>
+                            c = 2 · atan2(√a, √(1-a))<br>
+                            Distance = R · c  (R = 6,371 km)
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-arrows-up-down text-emerald"></i> 2. Dynamic Suspension Sag</h4>
+                        <p>Accounts for vehicle weight transfer and approach velocity:</p>
+                        <div class="formula-box">
+                            Sag = min(85mm, (Depth × 0.35) × (Weight/1500) × K_stiff × F_speed)<br>
+                            Effective Clearance = GC - Depth - (Sag × 0.5)
+                        </div>
+                    </div>
+                    <div class="glass-card" style="grid-column: span 2;">
+                        <h4><i class="fa-solid fa-gauge-high text-amber"></i> 3. Pothole Severity Index (PSI)</h4>
+                        <div class="formula-box">
+                            PSI = min(99, (Depth_cm × 3.8) + (Diameter_cm × 0.35) + WaterLoggedBonus)
+                        </div>
+                        <p style="font-size: 0.85rem; color: #94a3b8;">If PSI &ge; 70%, the hazard is automatically escalated to an emergency municipal dispatch ticket.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Key Java Files -->
+        <div class="slide" id="slide-6">
+            <div class="slide-tag"><i class="fa-solid fa-code"></i> Implementation Details</div>
+            <h2 class="slide-title">Core Java Modules & <span>Design Patterns</span></h2>
+            <div class="slide-content">
+                <div class="grid-3">
+                    <div class="glass-card">
+                        <h4><code>VehiclePassabilityService</code></h4>
+                        <p><strong>Physics Engine:</strong> Evaluates ground clearance, calculates rim bend probability, shock absorber wear, and estimated repair cost in ₹ INR.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><code>RoadSafetyService</code></h4>
+                        <p><strong>Spatial Engine:</strong> Catalogs 12 road segments across Bengaluru, executes the Haversine algorithm, and delivers the 6 nearest road corridors.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><code>PotholeDetectionService</code></h4>
+                        <p><strong>Hazard Repository:</strong> Ingests road anomalies, classifies depth & diameter, and triggers automated municipal escalation.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><code>RoadGuardServer</code></h4>
+                        <p><strong>Embedded Microservice:</strong> Uses <code>HttpServer</code> to route requests for vehicles, roads, passability evaluations, and dispatches.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><code>AuthorityReportingService</code></h4>
+                        <p><strong>Civic Dispatch:</strong> Formats official tickets for NHAI, BBMP, and PWD with auto-generated SLA resolution deadlines.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><code>Domain Models</code></h4>
+                        <p><code>Vehicle</code>, <code>RoadSegment</code>, <code>Pothole</code>, <code>PassabilityResult</code>, and <code>DispatchReport</code> encapsulate OOP entities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Feature Walkthrough - Passability -->
+        <div class="slide" id="slide-7">
+            <div class="slide-tag"><i class="fa-solid fa-car-side"></i> Feature Walkthrough</div>
+            <h2 class="slide-title">Interactive <span>"Can My Vehicle Cross?"</span></h2>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-list-check text-cyan"></i> Step 1: Vehicle Selection</h4>
+                        <ul>
+                            <li>Pre-configured database of top Indian cars & two-wheelers (Thar, Fortuner, Creta, Nexon, City, Swift, Classic 350, Activa).</li>
+                            <li>Instant auto-fill of factory specifications (Ground clearance, curb weight, suspension stiffness).</li>
+                            <li>Custom vehicle inputs supported for modified rides.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-satellite text-emerald"></i> Step 2: GPS Road Radar</h4>
+                        <ul>
+                            <li>Single-click <strong>"Turn On My Location"</strong> button.</li>
+                            <li>Google Maps automatically focuses on your location and queries the <strong>6 closest roads</strong>.</li>
+                            <li>Color-coded badges (Green = Safe, Yellow = Caution, Red = Hazardous).</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card" style="grid-column: span 2;">
+                        <h4><i class="fa-solid fa-chart-line text-amber"></i> Step 3: Instant Physics-Based Decision</h4>
+                        <p>Delivers an instant verdict (Passable, Warning, or Impassable), estimated safe crossings, rim bend risk (%), dynamic sag (mm), and potential repair cost (₹).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Experimental Results -->
+        <div class="slide" id="slide-8">
+            <div class="slide-tag"><i class="fa-solid fa-square-poll-vertical"></i> Simulation Results</div>
+            <h2 class="slide-title">Vehicle Passability <span>Evaluation Matrix</span></h2>
+            <div class="slide-content">
+                <p style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-muted);">
+                    Benchmark test against a <strong>14.5 cm (145 mm) deep crater</strong> on Outer Ring Road:
+                </p>
+                <table class="pres-table">
+                    <thead>
+                        <tr>
+                            <th>Vehicle Model</th>
+                            <th>Category</th>
+                            <th>Ground Clearance</th>
+                            <th>Dynamic Sag</th>
+                            <th>Buffer Margin</th>
+                            <th>Verdict</th>
+                            <th>Est. Repair</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mahindra Thar</strong></td>
+                            <td>4x4 SUV</td>
+                            <td>226 mm</td>
+                            <td>28 mm</td>
+                            <td><span class="badge-safe">+67.0 mm</span></td>
+                            <td><span class="badge-safe">SAFE TO CROSS</span></td>
+                            <td>₹0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hyundai Creta</strong></td>
+                            <td>Compact SUV</td>
+                            <td>190 mm</td>
+                            <td>34 mm</td>
+                            <td><span class="badge-safe">+28.0 mm</span></td>
+                            <td><span class="badge-safe">PASSABLE (Slow down)</span></td>
+                            <td>₹2,500</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Honda City</strong></td>
+                            <td>Sedan</td>
+                            <td>165 mm</td>
+                            <td>41 mm</td>
+                            <td><span class="badge-warn">-0.5 mm</span></td>
+                            <td><span class="badge-warn">SCRAPE RISK</span></td>
+                            <td>₹19,500</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Maruti Swift</strong></td>
+                            <td>Hatchback</td>
+                            <td>163 mm</td>
+                            <td>48 mm</td>
+                            <td><span class="badge-danger">-6.0 mm</span></td>
+                            <td><span class="badge-danger">IMPASSABLE (Sump Crack)</span></td>
+                            <td>₹45,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Honda Activa 6G</strong></td>
+                            <td>Scooter</td>
+                            <td>162 mm</td>
+                            <td>N/A</td>
+                            <td><span class="badge-danger">&gt; 50% wheel radius</span></td>
+                            <td><span class="badge-danger">CRITICAL ROLLOVER</span></td>
+                            <td>₹18,000 + Injury</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 9: Municipal Authority Integration -->
+        <div class="slide" id="slide-9">
+            <div class="slide-tag"><i class="fa-solid fa-landmark"></i> Civic Technology</div>
+            <h2 class="slide-title">Autonomous <span>Municipal Dispatching</span></h2>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-paper-plane text-cyan"></i> Automated Ticket Routing</h4>
+                        <ul>
+                            <li><strong>National Highways (NHAI):</strong> Outer Ring Road & Expressways.</li>
+                            <li><strong>Municipal Corporations (BBMP):</strong> Major arterial zones & ward streets.</li>
+                            <li><strong>State Public Works (PWD):</strong> State highways & bypass corridors.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-clock text-amber"></i> Enforced SLA Resolution Times</h4>
+                        <ul>
+                            <li><strong>Emergency (24 Hours):</strong> Depth &gt; 10 cm, critical rollover risk.</li>
+                            <li><strong>Priority (48 Hours):</strong> Medium depth craters, edge breaks.</li>
+                            <li><strong>Routine (7 Days):</strong> Minor surface spalls and rumble ripples.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card" style="grid-column: span 2;">
+                        <h4><i class="fa-solid fa-check-double text-emerald"></i> Live Citizen Transparency Console</h4>
+                        <p>Commuters can view public dispatch tickets with tracking codes (e.g. <code>NHAI-KA-BLR-2026-9481</code>), providing complete transparency into civic repair workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Comparative Advantage -->
+        <div class="slide" id="slide-10">
+            <div class="slide-tag"><i class="fa-solid fa-scale-balanced"></i> Benchmark</div>
+            <h2 class="slide-title">Competitive & <span>Technical Advantage</span></h2>
+            <div class="slide-content">
+                <table class="pres-table">
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Traditional Navigation (Google Maps)</th>
+                            <th>Crowdsourced Apps (Waze)</th>
+                            <th>RoadGuard AI (Ours)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Traffic Congestion Alerts</td>
+                            <td><span class="badge-safe">YES</span></td>
+                            <td><span class="badge-safe">YES</span></td>
+                            <td><span class="badge-safe">YES</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pothole Dimensional Sizing</td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-warn">Pin Only</span></td>
+                            <td><span class="badge-safe">Depth & Diameter (cm)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Vehicle-Specific Passability</td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-safe">YES (Physics Simulation)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Dynamic Suspension Sag Math</td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-safe">YES (Weight/Speed)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Automated Municipal Dispatch</td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-danger">NO</span></td>
+                            <td><span class="badge-safe">YES (24h/48h SLAs)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 11: Future Scope -->
+        <div class="slide" id="slide-11">
+            <div class="slide-tag"><i class="fa-solid fa-compass"></i> Roadmap</div>
+            <h2 class="slide-title">Future Scope & <span>Commercialization</span></h2>
+            <div class="slide-content">
+                <div class="grid-3">
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-microchip text-cyan"></i> Edge AI Deployment</h4>
+                        <p>Port inference models to Raspberry Pi 5 or NVIDIA Jetson for embedded dashcams with low-latency offline edge inference.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-plug text-emerald"></i> OBD-II CAN Bus Sync</h4>
+                        <p>Stream real-time vehicle speed and vertical accelerometer (Z-axis G-force) spikes directly from the vehicle's diagnostic port.</p>
+                    </div>
+                    <div class="glass-card">
+                        <h4><i class="fa-solid fa-tower-broadcast text-amber"></i> Smart City Integration</h4>
+                        <p>Direct webhooks into Municipal GIS command centers and automated work-order generation for road repair contractors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusion -->
+        <div class="slide" id="slide-12">
+            <div class="title-slide-container">
+                <div class="title-slide-logo" style="background: linear-gradient(135deg, var(--accent-emerald), var(--primary-cyan));">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h1 class="title-main" style="font-size: 2.8rem;">Conclusion & Summary</h1>
+                <p class="title-sub" style="font-size: 1.1rem; max-width: 750px;">
+                    <strong>RoadGuard AI</strong> pioneers the convergence of Java microservices, applied geospatial mathematics, and vehicle physics to transform passive commuters into active road safety guardians.
+                </p>
+                <div class="title-meta-box" style="margin-top: 10px;">
+                    <div class="t-item"><span>Status:</span> Fully Functional & Tested</div>
+                    <div class="t-item"><span>Live URL:</span> http://localhost:8090/</div>
+                    <div class="t-item"><span>GitHub:</span> github.com/Jeswin44/roadview</div>
+                </div>
+                <h3 style="margin-top: 20px; font-family: var(--font-heading); color: #ffffff;">Thank You! Questions & Discussion</h3>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Navigation Controls -->
+    <footer class="pres-footer">
+        <div class="slide-counter">
+            Slide <span id="currentSlideNum">1</span> of <span id="totalSlidesNum">12</span>
+            <span class="key-hint">(Use &larr; &rarr; Arrow Keys or Spacebar)</span>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+
+        <div class="btn-controls">
+            <button class="btn-ctrl" id="btnPrevSlide" disabled><i class="fa-solid fa-chevron-left"></i> Previous</button>
+            <button class="btn-ctrl" id="btnNextSlide">Next <i class="fa-solid fa-chevron-right"></i></button>
+            <button class="btn-ctrl" id="btnFullscreen"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        const slides = document.querySelectorAll('.slide');
+        const currentSlideNum = document.getElementById('currentSlideNum');
+        const progressFill = document.getElementById('progressFill');
+        const btnPrev = document.getElementById('btnPrevSlide');
+        const btnNext = document.getElementById('btnNextSlide');
+        const btnFullscreen = document.getElementById('btnFullscreen');
+
+        function showSlide(index) {
+            if (index < 1) index = 1;
+            if (index > totalSlides) index = totalSlides;
+
+            slides.forEach((s, idx) => {
+                if (idx + 1 === index) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            currentSlide = index;
+            currentSlideNum.textContent = currentSlide;
+            progressFill.style.width = ((currentSlide / totalSlides) * 100) + '%';
+
+            btnPrev.disabled = (currentSlide === 1);
+            btnNext.disabled = (currentSlide === totalSlides);
+        }
+
+        btnPrev.addEventListener('click', () => showSlide(currentSlide - 1));
+        btnNext.addEventListener('click', () => showSlide(currentSlide + 1));
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                showSlide(currentSlide - 1);
+            } else if (e.key === 'Home') {
+                showSlide(1);
+            } else if (e.key === 'End') {
+                showSlide(totalSlides);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullScreen();
+            }
+        });
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        btnFullscreen.addEventListener('click', toggleFullScreen);
+    </script>
+</body>
+</html>
